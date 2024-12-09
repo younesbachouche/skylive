@@ -16,7 +16,7 @@
             font-family: Arial, sans-serif;
             background-color: #f0f0f0;
             color: #333;
-            transition: background-color 0.3s, color 0.3s;
+            padding: 20px 0;
         }
 
         .container {
@@ -36,25 +36,29 @@
             display: flex;
             flex-direction: column;
             gap: 20px;
+            align-items: center;
         }
 
         .match {
             display: flex;
-            flex-direction: row;
-            align-items: center;
             justify-content: space-between;
+            align-items: center;
             background-color: #fff;
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: background-color 0.3s;
+            width: 100%;
+            max-width: 1000px; /* Ensure cards don't exceed max width */
+            margin: 0 auto; /* Center the card */
+            box-sizing: border-box;
         }
 
         .team {
             display: flex;
             flex-direction: column;
             align-items: center;
-            width: 30%;
+            width: 25%; /* Ensure teams take up equal width */
+            text-align: center;
         }
 
         .team img {
@@ -68,7 +72,7 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            width: 40%;
+            width: 40%; /* Keep details area in the center */
         }
 
         .vs {
@@ -103,76 +107,42 @@
             height: 40px;
         }
 
-        /* Dark mode styles */
-        body.dark-mode {
-            background-color: #181818;
-            color: #f0f0f0;
-        }
-
-        body.dark-mode header h1 {
-            color: #f0f0f0;
-        }
-
-        body.dark-mode .match {
-            background-color: #2b2b2b;
-            color: #f0f0f0;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-        }
-
-        body.dark-mode .match-details .time {
-            color: #aaa;
-        }
-
-        body.dark-mode .stream-link {
-            background-color: #007BFF;
-            color: #fff;
-        }
-
-        body.dark-mode .stream-link:hover {
-            background-color: #0056b3;
-        }
-
-        body.dark-mode .competition-logo {
-            filter: brightness(0) invert(1);
-        }
-
-        /* Dark mode toggle button */
-        .dark-mode-toggle {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background-color: transparent;
-            border: none;
-            cursor: pointer;
-            font-size: 24px;
-            color: #333;
-            transition: color 0.3s;
-        }
-
-        .dark-mode-toggle i {
-            transition: transform 0.3s;
-        }
-
-        body.dark-mode .dark-mode-toggle i {
-            color: #f0f0f0;
-        }
-
         /* Responsive Design */
+        @media (max-width: 1024px) {
+            .match {
+                justify-content: space-evenly;
+            }
+
+            .team img {
+                width: 45px; /* Slightly smaller logos for tablets */
+                height: 45px;
+            }
+
+            .vs {
+                font-size: 22px; /* Slightly smaller font for the "vs" text */
+            }
+
+            .time {
+                font-size: 16px; /* Adjust match time text size */
+            }
+        }
+
         @media (max-width: 768px) {
             .match {
-                flex-direction: column;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
                 align-items: center;
                 text-align: center;
+                padding: 15px; /* Reduced padding for smaller devices */
             }
 
             .team {
-                width: 80%;
-                margin-bottom: 10px;
+                width: 25%; /* Reduced width for team logos */
             }
 
             .match-details {
-                width: 80%;
-                margin-bottom: 10px;
+                width: 35%; /* Reduced width for the middle content */
             }
 
             .stream-link {
@@ -208,12 +178,24 @@
             }
 
             .match {
-                padding: 15px;
+                flex-direction: row;
+                align-items: center;
+                padding: 10px;
+                width: 100%; /* Full width for small screens */
+                box-sizing: border-box;
+            }
+
+            .team {
+                width: 30%;
+            }
+
+            .match-details {
+                width: 30%;
             }
 
             .team img {
-                width: 30px;
-                height: 30px;
+                width: 35px;
+                height: 35px;
             }
 
             .vs {
@@ -229,6 +211,41 @@
                 padding: 8px 16px;
             }
         }
+
+        /* Dark mode */
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-color: #181818;
+                color: #f0f0f0;
+            }
+
+            header h1 {
+                color: #f0f0f0;
+            }
+
+            .match {
+                background-color: #2b2b2b;
+                color: #f0f0f0;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            }
+
+            .match-details .time {
+                color: #aaa;
+            }
+
+            .stream-link {
+                background-color: #007BFF;
+                color: #fff;
+            }
+
+            .stream-link:hover {
+                background-color: #0056b3;
+            }
+
+            .competition-logo {
+                filter: brightness(0) invert(1);
+            }
+        }
     </style>
 </head>
 <body>
@@ -237,7 +254,7 @@
             <h1>Live Match Schedule</h1>
         </header>
         <div class="match-schedule">
-            <!-- Match 1: Girona vs Liverpool -->
+            <!-- Match 1: Real Madrid vs Liverpool -->
             <div class="match">
                 <div class="team">
                     <img src="https://img.sofascore.com/api/v1/team/24264/image" alt="Girona Logo">
@@ -254,49 +271,29 @@
                 <a href="https://www.example.com/stream" class="stream-link" target="_blank">Watch Live</a>
             </div>
 
-            <!-- More matches can be added here -->
+            <!-- Match 2: Example Match -->
+            <div class="match">
+                <div class="team">
+                    <img src="https://img.sofascore.com/api/v1/team/2032/image" alt="Dinamo Logo">
+                    <p>Dinamo</p>
+                </div>
+                <div class="match-details">
+                    <img src="https://img.sofascore.com/api/v1/unique-tournament/7/image" class="competition-logo" alt="Example Competition Logo">
+                    <p class="time">20:00 GMT</p>
+                </div>
+                <div class="team">
+                    <img src="https://img.sofascore.com/api/v1/team/2352/image" alt="Celtic Logo">
+                    <p>Celtic</p>
+                </div>
+                <a href="https://www.example.com/stream" class="stream-link" target="_blank">Watch Live</a>
+            </div>
+
+            <!-- Add more matches as necessary -->
         </div>
     </div>
 
-    <!-- Dark Mode Toggle Button -->
-    <button class="dark-mode-toggle" onclick="toggleDarkMode()">
-        <i id="theme-icon" class="fas fa-sun"></i> <!-- Default icon (sun) -->
-    </button>
-
     <script>
-        // Function to toggle dark mode
-        function toggleDarkMode() {
-            const body = document.body;
-            const icon = document.getElementById('theme-icon');
-
-            // Toggle dark mode class
-            body.classList.toggle('dark-mode');
-
-            // Update icon
-            if (body.classList.contains('dark-mode')) {
-                icon.classList.remove('fa-sun');
-                icon.classList.add('fa-moon');
-            } else {
-                icon.classList.remove('fa-moon');
-                icon.classList.add('fa-sun');
-            }
-
-            // Save the theme preference in localStorage
-            localStorage.setItem('theme', body.classList.contains('dark-mode') ? 'dark' : 'light');
-        }
-
-        // Check localStorage for theme preference on load
-        window.onload = function() {
-            const savedTheme = localStorage.getItem('theme');
-            if (savedTheme === 'dark') {
-                document.body.classList.add('dark-mode');
-                document.getElementById('theme-icon').classList.remove('fa-sun');
-                document.getElementById('theme-icon').classList.add('fa-moon');
-            }
-        }
+        console.log("Live match schedule loaded");
     </script>
-
-    <!-- FontAwesome CDN for the sun and moon icons -->
-    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
 </body>
 </html>
