@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Match Schedule</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Light mode (default) */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            color: #333;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 20px auto;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .match-schedule {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .match {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s;
+        }
+
+        .team {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 30%;
+        }
+
+        .team img {
+            width: 50px;
+            height: 50px;
+            margin-bottom: 10px;
+        }
+
+        .match-details {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 40%;
+        }
+
+        .vs {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .time {
+            font-size: 18px;
+            color: #666;
+        }
+
+        .stream-link {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        .stream-link:hover {
+            background-color: #0056b3;
+        }
+
+        /* For the competition logo */
+        .competition-logo {
+            width: 40px;
+            height: 40px;
+        }
+
+        /* Dark mode styles */
+        body.dark-mode {
+            background-color: #181818;
+            color: #f0f0f0;
+        }
+
+        body.dark-mode header h1 {
+            color: #f0f0f0;
+        }
+
+        body.dark-mode .match {
+            background-color: #2b2b2b;
+            color: #f0f0f0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        body.dark-mode .match-details .time {
+            color: #aaa;
+        }
+
+        body.dark-mode .stream-link {
+            background-color: #007BFF;
+            color: #fff;
+        }
+
+        body.dark-mode .stream-link:hover {
+            background-color: #0056b3;
+        }
+
+        body.dark-mode .competition-logo {
+            filter: brightness(0) invert(1);
+        }
+
+        /* Dark mode toggle button */
+        .dark-mode-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            font-size: 24px;
+            color: #333;
+            transition: color 0.3s;
+        }
+
+        .dark-mode-toggle i {
+            transition: transform 0.3s;
+        }
+
+        body.dark-mode .dark-mode-toggle i {
+            color: #f0f0f0;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .match {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .team {
+                width: 80%;
+                margin-bottom: 10px;
+            }
+
+            .match-details {
+                width: 80%;
+                margin-bottom: 10px;
+            }
+
+            .stream-link {
+                width: 100%;
+                margin-top: 10px;
+            }
+
+            header h1 {
+                font-size: 28px;
+            }
+
+            .team img {
+                width: 40px;
+                height: 40px;
+            }
+
+            .vs {
+                font-size: 20px;
+            }
+
+            .time {
+                font-size: 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                width: 95%;
+            }
+
+            header h1 {
+                font-size: 24px;
+            }
+
+            .match {
+                padding: 15px;
+            }
+
+            .team img {
+                width: 30px;
+                height: 30px;
+            }
+
+            .vs {
+                font-size: 18px;
+            }
+
+            .time {
+                font-size: 14px;
+            }
+
+            .stream-link {
+                font-size: 14px;
+                padding: 8px 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Live Match Schedule</h1>
+        </header>
+        <div class="match-schedule">
+            <!-- Match 1: Girona vs Liverpool -->
+            <div class="match">
+                <div class="team">
+                    <img src="https://img.sofascore.com/api/v1/team/24264/image" alt="Girona Logo">
+                    <p>Girona</p>
+                </div>
+                <div class="match-details">
+                    <img src="https://img.sofascore.com/api/v1/unique-tournament/7/image" class="competition-logo" alt="Competition Logo">
+                    <p class="time">17:00 GMT</p>
+                </div>
+                <div class="team">
+                    <img src="https://img.sofascore.com/api/v1/team/44/image" alt="Liverpool Logo">
+                    <p>Liverpool</p>
+                </div>
+                <a href="https://www.example.com/stream" class="stream-link" target="_blank">Watch Live</a>
+            </div>
+
+            <!-- More matches can be added here -->
+        </div>
+    </div>
+
+    <!-- Dark Mode Toggle Button -->
+    <button class="dark-mode-toggle" onclick="toggleDarkMode()">
+        <i id="theme-icon" class="fas fa-sun"></i> <!-- Default icon (sun) -->
+    </button>
+
+    <script>
+        // Function to toggle dark mode
+        function toggleDarkMode() {
+            const body = document.body;
+            const icon = document.getElementById('theme-icon');
+
+            // Toggle dark mode class
+            body.classList.toggle('dark-mode');
+
+            // Update icon
+            if (body.classList.contains('dark-mode')) {
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+            } else {
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+            }
+
+            // Save the theme preference in localStorage
+            localStorage.setItem('theme', body.classList.contains('dark-mode') ? 'dark' : 'light');
+        }
+
+        // Check localStorage for theme preference on load
+        window.onload = function() {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                document.body.classList.add('dark-mode');
+                document.getElementById('theme-icon').classList.remove('fa-sun');
+                document.getElementById('theme-icon').classList.add('fa-moon');
+            }
+        }
+    </script>
+
+    <!-- FontAwesome CDN for the sun and moon icons -->
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+</body>
+</html>
