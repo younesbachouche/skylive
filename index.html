@@ -95,6 +95,7 @@
             border-radius: 5px;
             font-size: 16px;
             transition: background-color 0.3s;
+            width: auto;
         }
 
         .stream-link:hover {
@@ -110,7 +111,7 @@
         /* Responsive Design */
         @media (max-width: 1024px) {
             .match {
-                justify-content: space-evenly;
+                justify-content: space-between;
             }
 
             .team img {
@@ -124,6 +125,11 @@
 
             .time {
                 font-size: 16px; /* Adjust match time text size */
+            }
+
+            .stream-link {
+                font-size: 14px;
+                padding: 8px 18px;
             }
         }
 
@@ -194,8 +200,8 @@
             }
 
             .team img {
-                width: 35px;
-                height: 35px;
+                width: 50px;
+                height: 50px;
             }
 
             .vs {
@@ -209,6 +215,7 @@
             .stream-link {
                 font-size: 14px;
                 padding: 8px 16px;
+                width: 100%; /* Full-width button on small screens */
             }
         }
 
@@ -254,38 +261,38 @@
             <h1>Live Match Schedule</h1>
         </header>
         <div class="match-schedule">
-            <!-- Match 1: Real Madrid vs Liverpool -->
+            <!-- Match 1: Girona vs Liverpool -->
             <div class="match">
-                <div class="team">
-                    <img src="https://img.sofascore.com/api/v1/team/24264/image" alt="Girona Logo">
+                <div class="team" style="justify-self: flex-start;">
+                    <img src="https://img.sofascore.com/api/v1/team/42204/image" alt="Girona Logo">
                     <p>Girona</p>
                 </div>
                 <div class="match-details">
                     <img src="https://img.sofascore.com/api/v1/unique-tournament/7/image" class="competition-logo" alt="Competition Logo">
                     <p class="time">17:00 GMT</p>
+                    <a href="https://www.example.com/stream" class="stream-link" target="_blank">Watch Live</a>
                 </div>
-                <div class="team">
-                    <img src="https://img.sofascore.com/api/v1/team/44/image" alt="Liverpool Logo">
+                <div class="team" style="justify-self: flex-end;">
+                    <img src="https://img.sofascore.com/api/v1/team/42204/image" alt="Liverpool Logo">
                     <p>Liverpool</p>
                 </div>
-                <a href="https://www.example.com/stream" class="stream-link" target="_blank">Watch Live</a>
             </div>
 
-            <!-- Match 2: Example Match -->
+            <!-- Match 2: Dinamo vs Celtic -->
             <div class="match">
-                <div class="team">
-                    <img src="https://img.sofascore.com/api/v1/team/2032/image" alt="Dinamo Logo">
+                <div class="team" style="justify-self: flex-start;">
+                    <img src="https://img.sofascore.com/api/v1/team/42204/image" alt="Dinamo Logo">
                     <p>Dinamo</p>
                 </div>
                 <div class="match-details">
                     <img src="https://img.sofascore.com/api/v1/unique-tournament/7/image" class="competition-logo" alt="Example Competition Logo">
                     <p class="time">20:00 GMT</p>
+                    <a href="https://www.example.com/stream" class="stream-link" target="_blank">Watch Live</a>
                 </div>
-                <div class="team">
-                    <img src="https://img.sofascore.com/api/v1/team/2352/image" alt="Celtic Logo">
+                <div class="team" style="justify-self: flex-end;">
+                    <img src="https://img.sofascore.com/api/v1/team/42204/image" alt="Celtic Logo">
                     <p>Celtic</p>
                 </div>
-                <a href="https://www.example.com/stream" class="stream-link" target="_blank">Watch Live</a>
             </div>
 
             <!-- Add more matches as necessary -->
@@ -294,6 +301,15 @@
 
     <script>
         console.log("Live match schedule loaded");
+         // Function to convert UTC time to local time
+        function convertToLocalTime(utcTime) {
+            const matchDate = new Date(utcTime);
+            return matchDate.toLocaleString(); // Automatically formats to the local time zone
+        }
+
+        // Set match times
+        document.getElementById('match-time-1').textContent = convertToLocalTime('2024-12-12T17:00:00Z'); // Match 1 (17:00 UTC)
+        document.getElementById('match-time-2').textContent = convertToLocalTime('2024-12-12T20:00:00Z'); // Match 2 (20:00 UTC)
     </script>
 </body>
 </html>
