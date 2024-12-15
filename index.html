@@ -48,8 +48,8 @@
             border-radius: 10px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             width: 100%;
-            max-width: 1000px; /* Ensure cards don't exceed max width */
-            margin: 0 auto; /* Center the card */
+            max-width: 1000px;
+            margin: 0 auto;
             box-sizing: border-box;
         }
 
@@ -57,7 +57,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            width: 25%; /* Ensure teams take up equal width */
+            width: 25%;
             text-align: center;
         }
 
@@ -72,7 +72,7 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            width: 40%; /* Keep details area in the center */
+            width: 40%;
         }
 
         .vs {
@@ -102,7 +102,7 @@
             background-color: #0056b3;
         }
 
-        /* Red "LIVE!" button */
+        /* Red "LIVE NOW!" button */
         .live-button {
             display: inline-block;
             margin-top: 10px;
@@ -113,7 +113,12 @@
             border-radius: 5px;
             font-size: 16px;
             font-weight: bold;
-            display: none; /* Hidden initially */
+            display: none;
+        }
+
+        .live-button a {
+            color: white;
+            text-decoration: none;
         }
 
         /* Grey "Match Ended" button */
@@ -127,13 +132,20 @@
             border-radius: 5px;
             font-size: 16px;
             font-weight: bold;
-            cursor: not-allowed; /* Disable the button */
+            cursor: not-allowed;
         }
 
         /* For the competition logo */
         .competition-logo {
             width: 40px;
             height: 40px;
+        }
+
+        /* Competition name style */
+        .competition-name {
+            font-size: 14px;
+            color: #666;
+            margin-top: 5px;
         }
 
         /* Responsive Design */
@@ -143,16 +155,16 @@
             }
 
             .team img {
-                width: 45px; /* Slightly smaller logos for tablets */
+                width: 45px;
                 height: 45px;
             }
 
             .vs {
-                font-size: 22px; /* Slightly smaller font for the "vs" text */
+                font-size: 22px;
             }
 
             .time {
-                font-size: 16px; /* Adjust match time text size */
+                font-size: 16px;
             }
 
             .stream-link {
@@ -168,15 +180,15 @@
                 justify-content: space-between;
                 align-items: center;
                 text-align: center;
-                padding: 15px; /* Reduced padding for smaller devices */
+                padding: 15px;
             }
 
             .team {
-                width: 25%; /* Reduced width for team logos */
+                width: 25%;
             }
 
             .match-details {
-                width: 35%; /* Reduced width for the middle content */
+                width: 35%;
             }
 
             .stream-link {
@@ -215,7 +227,7 @@
                 flex-direction: row;
                 align-items: center;
                 padding: 10px;
-                width: 100%; /* Full width for small screens */
+                width: 100%;
                 box-sizing: border-box;
             }
 
@@ -243,7 +255,7 @@
             .stream-link {
                 font-size: 14px;
                 padding: 8px 16px;
-                width: 100%; /* Full-width button on small screens */
+                width: 100%;
             }
         }
     </style>
@@ -258,19 +270,21 @@
             <div class="match">
                 <div class="team" style="justify-self: flex-start;">
                     <img src="https://img.sofascore.com/api/v1/team/42204/image" alt="Girona Logo">
-                    <p>Girona</p>
+                    <p>MC ALlger</p>
                 </div>
                 <div class="match-details">
-                    <img src="https://img.sofascore.com/api/v1/unique-tournament/7/image" class="competition-logo" alt="Competition Logo">
-                    <p class="time" id="match-time-1">13:00 GMT+1</p>
-                    <!-- Placeholder for the "Watch Live" button -->
+                    <img src="https://images.fotmob.com/image_resources/logo/leaguelogo/47.png" class="competition-logo" alt="Competition Logo">
+                    <p class="competition-name">Premier League</p>
+                    <p class="time" id="match-time-1">Today At: 13:00 GMT+1</p>
                     <a href="https://www.example.com/stream" class="stream-link" target="_blank" id="match-link-1">Watch Live</a>
-                    <div class="live-button" id="live-button-1">LIVE!</div>
+                    <div class="live-button" id="live-button-1">
+                        <a href="https://www.example.com/stream" target="_blank">LIVE NOW!</a>
+                    </div>
                     <div class="ended-button" id="ended-button-1" style="display: none;">Match Ended</div>
                 </div>
                 <div class="team" style="justify-self: flex-end;">
                     <img src="https://img.sofascore.com/api/v1/team/42204/image" alt="Liverpool Logo">
-                    <p>Liverpool</p>
+                    <p>MC ALlger</p>
                 </div>
             </div>
 
@@ -278,64 +292,75 @@
             <div class="match">
                 <div class="team" style="justify-self: flex-start;">
                     <img src="https://img.sofascore.com/api/v1/team/42204/image" alt="Dinamo Logo">
-                    <p>Dinamo</p>
+                    <p>MC ALlger</p>
                 </div>
                 <div class="match-details">
                     <img src="https://img.sofascore.com/api/v1/unique-tournament/7/image" class="competition-logo" alt="Example Competition Logo">
-                    <p class="time" id="match-time-2">20:00 GMT+1</p>
-                    <!-- Placeholder for the "Watch Live" button -->
+                    <p class="competition-name">Premier League</p>
+                    <p class="time" id="match-time-2">Today At: 20:00 GMT+1</p>
                     <a href="https://www.example.com/stream" class="stream-link" target="_blank" id="match-link-2">Watch Live</a>
-                    <div class="live-button" id="live-button-2">LIVE!</div>
+                    <div class="live-button" id="live-button-2">
+                        <a href="https://www.example.com/stream" target="_blank">LIVE NOW!</a>
+                    </div>
                     <div class="ended-button" id="ended-button-2" style="display: none;">Match Ended</div>
                 </div>
                 <div class="team" style="justify-self: flex-end;">
                     <img src="https://img.sofascore.com/api/v1/team/42204/image" alt="Celtic Logo">
-                    <p>Celtic</p>
+                    <p>MC ALlger</p>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        // Function to convert UTC time to GMT+1 time
-        function convertToGMTPlusOne(utcTime) {
-            const matchDate = new Date(utcTime);
-            // Adjust time by adding 1 hour (GMT+1)
-            matchDate.setHours(matchDate.getHours() + 1);
-            return matchDate.toLocaleString(); // Automatically formats to the local time zone
-        }
-
         // Function to update the button when the match starts
         function updateMatchStatus(matchId, matchTime) {
             const matchStartTime = new Date(matchTime).getTime();
             const matchEndTime = matchStartTime + 2 * 60 * 60 * 1000; // 2 hours after match time
             const currentTime = new Date().getTime();
 
+            const matchTimeElement = document.getElementById(`match-time-${matchId}`);
+
             // Check if the match time has passed
             if (currentTime >= matchEndTime) {
-                // Show the "Match Ended" button and hide the "Watch Live" link
+                // Show the "Match Ended" button, hide "Watch Live" link, and hide the match time text
                 document.getElementById(`ended-button-${matchId}`).style.display = "inline-block";
                 document.getElementById(`match-link-${matchId}`).style.display = "none";
                 document.getElementById(`live-button-${matchId}`).style.display = "none";
+                matchTimeElement.style.display = "none"; // Hide match time text
             } else if (currentTime >= matchStartTime) {
-                // Show the "LIVE!" button and hide the "Watch Live" link
+                // Show the "LIVE NOW!" button, hide the "Watch Live" link, and hide the match time text
                 document.getElementById(`live-button-${matchId}`).style.display = "inline-block";
                 document.getElementById(`match-link-${matchId}`).style.display = "none";
+                matchTimeElement.style.display = "none"; // Hide match time text
             }
         }
 
-        // Set match times and initialize the buttons
-        const matchTime1 = '2024-12-12T12:00:00Z'; // Match 1 (13:00 GMT+1)
+        // Function to convert the UTC match time to the user's local time
+        function convertToLocalTime(utcTime) {
+            const matchDate = new Date(utcTime);
+            const options = {
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: false,
+                timeZoneName: 'short',
+                timeZone: 'Europe/Paris' // Adjust for a specific time zone if necessary
+            };
+            const localTime = new Intl.DateTimeFormat('en-GB', options).format(matchDate);
+            return localTime;
+        }
+
+        // Set match times in UTC and initialize the buttons
+        const matchTime1 = '2024-12-15T10:40:00Z'; // Match 1 (13:00 GMT+1)
         const matchTime2 = '2024-12-12T19:00:00Z'; // Match 2 (20:00 GMT+1)
 
-        document.getElementById('match-time-1').textContent = convertToGMTPlusOne(matchTime1);
-        document.getElementById('match-time-2').textContent = convertToGMTPlusOne(matchTime2);
+        // Convert match times to local time
+        document.getElementById("match-time-1").textContent = `Today At: ${convertToLocalTime(matchTime1)}`;
+        document.getElementById("match-time-2").textContent = `Today At: ${convertToLocalTime(matchTime2)}`;
 
-        // Set intervals to check the time every 30 seconds
-        setInterval(function() {
-            updateMatchStatus(1, matchTime1);
-            updateMatchStatus(2, matchTime2);
-        }, 30000); // Check every 30 seconds
+        // Immediately check the match status
+        updateMatchStatus(1, matchTime1);
+        updateMatchStatus(2, matchTime2);
     </script>
 </body>
 </html>
