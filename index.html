@@ -336,7 +336,7 @@
             }
         }
 
-        // Function to convert the UTC match time to the user's local time
+        // Function to convert the UTC match time to the user's local time (GMT+1)
         function convertToLocalTime(utcTime) {
             const matchDate = new Date(utcTime);
             const options = {
@@ -344,17 +344,17 @@
                 minute: '2-digit',
                 hour12: false,
                 timeZoneName: 'short',
-                timeZone: 'Europe/Paris' // Adjust for a specific time zone if necessary
+                timeZone: 'Europe/Paris' // This represents GMT+1, adjust accordingly
             };
             const localTime = new Intl.DateTimeFormat('en-GB', options).format(matchDate);
             return localTime;
         }
 
         // Set match times in UTC and initialize the buttons
-        const matchTime1 = '2024-12-15T10:40:00Z'; // Match 1 (13:00 GMT+1)
-        const matchTime2 = '2024-12-12T19:00:00Z'; // Match 2 (20:00 GMT+1)
+        const matchTime1 = '2024-12-15T10:00:00Z'; // Match 1 in UTC (13:00 GMT+1)
+        const matchTime2 = '2024-12-15T19:00:00Z'; // Match 2 in UTC (20:00 GMT+1)
 
-        // Convert match times to local time
+        // Convert match times to local time (GMT+1)
         document.getElementById("match-time-1").textContent = `Today At: ${convertToLocalTime(matchTime1)}`;
         document.getElementById("match-time-2").textContent = `Today At: ${convertToLocalTime(matchTime2)}`;
 
