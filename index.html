@@ -121,6 +121,7 @@
             font-size: 16px;
             font-weight: bold;
             display: none;
+            width: auto; /* Allow the button to adjust width */
         }
 
         .live-button a {
@@ -264,6 +265,13 @@
                 padding: 8px 16px;
                 width: 100%;
             }
+
+            /* For "LIVE NOW!" button */
+            .live-button {
+                padding: 8px 12px; /* Further reduce padding */
+                font-size: 12px; /* Further reduce font size */
+                width: 100%; /* Full width for very small screens */
+            }
         }
     </style>
 </head>
@@ -333,7 +341,6 @@
 
             // Check if the match time has passed
             if (currentTime >= matchEndTime) {
-                // Show the "Match Ended" button, hide "Watch Live" link, and hide the match time text
                 document.getElementById(`ended-button-${matchId}`).style.display = "inline-block";
                 document.getElementById(`match-link-${matchId}`).style.display = "none";
                 document.getElementById(`live-button-${matchId}`).style.display = "none";
@@ -346,7 +353,6 @@
                 matchTimeElement.style.display = "none"; // Hide match time text
                 countdownElement.style.display = "none"; // Hide countdown text
             } else {
-                // Show countdown until match starts
                 let remainingTime = matchStartTime - currentTime;
                 let hours = Math.floor(remainingTime / (1000 * 60 * 60));
                 let minutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60));
