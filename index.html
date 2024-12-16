@@ -86,6 +86,12 @@
             color: #666;
         }
 
+        .score {
+            font-size: 18px;
+            color: #333;
+            margin-top: 10px;
+        }
+
         .countdown {
             font-size: 18px;
             color: rgb(255, 0, 0);
@@ -162,8 +168,8 @@
             }
 
             .team img {
-                width: 70px; /* Adjusted logo size for smaller screens */
-                height: 70px;
+                width: 40px; /* Adjusted logo size for smaller screens */
+                height: 40px;
             }
 
             .vs {
@@ -283,6 +289,7 @@
                     <img src="https://images.fotmob.com/image_resources/logo/leaguelogo/47.png" class="competition-logo" alt="Competition Logo">
                     <p class="competition-name">Premier League</p>
                     <p class="time" id="match-time-1">Today At: 13:00 GMT+1</p>
+                    <p class="score" id="match-score-1">Score: 0 - 0</p>
                     <p class="countdown" id="countdown-1">Match starts in: 02:00:00</p>
                     <a href="https://www.example.com/stream" class="stream-link" target="_blank" id="match-link-1">Watch Live</a>
                     <div class="live-button" id="live-button-1">
@@ -306,6 +313,7 @@
                     <img src="https://images.fotmob.com/image_resources/logo/leaguelogo/47.png" class="competition-logo" alt="Competition Logo">
                     <p class="competition-name">Premier League</p>
                     <p class="time" id="match-time-2">Today At: 20:00 GMT+1</p>
+                    <p class="score" id="match-score-2">Score: 0 - 0</p>
                     <p class="countdown" id="countdown-2">Match starts in: 08:00:00</p>
                     <a href="https://www.example.com/stream" class="stream-link" target="_blank" id="match-link-2">Watch Live</a>
                     <div class="live-button" id="live-button-2">
@@ -329,6 +337,7 @@
             const currentTime = new Date().getTime();
 
             const matchTimeElement = document.getElementById(`match-time-${matchId}`);
+            const matchScoreElement = document.getElementById(`match-score-${matchId}`);
             const countdownElement = document.getElementById(`countdown-${matchId}`);
 
             // Check if the match time has passed
@@ -339,6 +348,7 @@
                 document.getElementById(`live-button-${matchId}`).style.display = "none";
                 matchTimeElement.style.display = "none"; // Hide match time text
                 countdownElement.style.display = "none"; // Hide countdown text
+                matchScoreElement.style.display = "inline-block"; // Show the score
             } else if (currentTime >= matchStartTime) {
                 // Show the "LIVE NOW!" button, hide the "Watch Live" link, and hide the match time text
                 document.getElementById(`live-button-${matchId}`).style.display = "inline-block";
