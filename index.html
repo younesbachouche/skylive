@@ -62,9 +62,10 @@
         }
 
         .team img {
-            width: 50px;
-            height: 50px;
+            width: 80px; /* Increased logo size */
+            height: 80px; /* Increased logo size */
             margin-bottom: 10px;
+            object-fit: cover; /* Ensures the logo maintains its aspect ratio */
         }
 
         .match-details {
@@ -83,6 +84,18 @@
         .time {
             font-size: 18px;
             color: #666;
+        }
+
+        .score {
+            font-size: 18px;
+            color: #333;
+            margin-top: 10px;
+        }
+
+        .countdown {
+            font-size: 18px;
+            color: rgb(255, 0, 0);
+            margin-top: 10px;
         }
 
         .stream-link {
@@ -155,8 +168,8 @@
             }
 
             .team img {
-                width: 45px;
-                height: 45px;
+                width: 70px; /* Adjusted logo size for smaller screens */
+                height: 70px;
             }
 
             .vs {
@@ -201,8 +214,8 @@
             }
 
             .team img {
-                width: 40px;
-                height: 40px;
+                width: 60px; /* Adjusted logo size for smaller screens */
+                height: 60px;
             }
 
             .vs {
@@ -240,8 +253,8 @@
             }
 
             .team img {
-                width: 50px;
-                height: 50px;
+                width: 60px; /* Adjusted logo size for very small screens */
+                height: 60px;
             }
 
             .vs {
@@ -276,6 +289,8 @@
                     <img src="https://images.fotmob.com/image_resources/logo/leaguelogo/47.png" class="competition-logo" alt="Competition Logo">
                     <p class="competition-name">Premier League</p>
                     <p class="time" id="match-time-1">Today At: 13:00 GMT+1</p>
+                    <p class="score" id="match-score-1">Score: 0 - 0</p>
+                    <p class="countdown" id="countdown-1">Match starts in: 02:00:00</p>
                     <a href="https://www.example.com/stream" class="stream-link" target="_blank" id="match-link-1">Watch Live</a>
                     <div class="live-button" id="live-button-1">
                         <a href="https://www.example.com/stream" target="_blank">LIVE NOW!</a>
@@ -295,9 +310,11 @@
                     <p>MC Alger</p>
                 </div>
                 <div class="match-details">
-                    <img src="https://img.sofascore.com/api/v1/unique-tournament/7/image" class="competition-logo" alt="Example Competition Logo">
+                    <img src="https://images.fotmob.com/image_resources/logo/leaguelogo/47.png" class="competition-logo" alt="Competition Logo">
                     <p class="competition-name">Premier League</p>
                     <p class="time" id="match-time-2">Today At: 20:00 GMT+1</p>
+                    <p class="score" id="match-score-2">Score: 0 - 0</p>
+                    <p class="countdown" id="countdown-2">Match starts in: 08:00:00</p>
                     <a href="https://www.example.com/stream" class="stream-link" target="_blank" id="match-link-2">Watch Live</a>
                     <div class="live-button" id="live-button-2">
                         <a href="https://www.example.com/stream" target="_blank">LIVE NOW!</a>
@@ -320,6 +337,8 @@
             const currentTime = new Date().getTime();
 
             const matchTimeElement = document.getElementById(`match-time-${matchId}`);
+            const matchScoreElement = document.getElementById(`match-score-${matchId}`);
+            const countdownElement = document.getElementById(`countdown-${matchId}`);
 
             // Check if the match time has passed
             if (currentTime >= matchEndTime) {
@@ -328,11 +347,21 @@
                 document.getElementById(`match-link-${matchId}`).style.display = "none";
                 document.getElementById(`live-button-${matchId}`).style.display = "none";
                 matchTimeElement.style.display = "none"; // Hide match time text
+                countdownElement.style.display = "none"; // Hide countdown text
+                matchScoreElement.style.display = "inline-block"; // Show the score
             } else if (currentTime >= matchStartTime) {
                 // Show the "LIVE NOW!" button, hide the "Watch Live" link, and hide the match time text
                 document.getElementById(`live-button-${matchId}`).style.display = "inline-block";
                 document.getElementById(`match-link-${matchId}`).style.display = "none";
                 matchTimeElement.style.display = "none"; // Hide match time text
+                countdownElement.style.display = "none"; // Hide countdown text
+            } else {
+                // Show countdown until match starts
+                let remainingTime = matchStartTime - currentTime;
+                let hours = Math.floor(remainingTime / (1000 * 60 * 60));
+                let minutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60));
+                let seconds = Math.floor((remainingTime % (1000 * 60)) / 1000);
+                countdownElement.textContent = `Match starts in: ${hours}:${minutes}:${seconds}`;
             }
         }
 
@@ -351,16 +380,18 @@
         }
 
         // Set match times in UTC and initialize the buttons
-        const matchTime1 = '2024-12-15T10:00:00Z'; // Match 1 in UTC (13:00 GMT+1)
-        const matchTime2 = '2024-12-15T19:00:00Z'; // Match 2 in UTC (20:00 GMT+1)
+        const matchTime1 = '2024-12-16T10:00:00Z'; // Match 1 in UTC (13:00 GMT+1)
+        const matchTime2 = '2024-12-16T18:00:00Z'; // Match 2 in UTC (20:00 GMT+1)
 
-        // Convert match times to local time (GMT+1)
-        document.getElementById("match-time-1").textContent = `Today At: ${convertToLocalTime(matchTime1)}`;
-        document.getElementById("match-time-2").textContent = `Today At: ${convertToLocalTime(matchTime2)}`;
+        // Convert match times and set them on the page
+        document.getElementById('match-time-1').textContent = `Today At: ${convertToLocalTime(matchTime1)}`;
+        document.getElementById('match-time-2').textContent = `Today At: ${convertToLocalTime(matchTime2)}`;
 
-        // Immediately check the match status
-        updateMatchStatus(1, matchTime1);
-        updateMatchStatus(2, matchTime2);
+        // Initialize match status
+        setInterval(() => {
+            updateMatchStatus(1, matchTime1);
+            updateMatchStatus(2, matchTime2);
+        }, 1000); // Update every second for countdown
     </script>
 </body>
 </html>
