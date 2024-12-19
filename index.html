@@ -88,7 +88,7 @@
 
         .countdown {
             font-size: 18px;
-            color: #666; /* Updated to neutral color */
+            color: #666;
             margin-top: 10px;
         }
 
@@ -137,7 +137,7 @@
 
         .competition-name {
             font-size: 14px;
-            color: #666;
+            color: #B3994C;
             margin-top: 5px;
         }
 
@@ -260,115 +260,77 @@
         <header>
             <h1>Live Match Schedule</h1>
         </header>
-        <div class="match-schedule">
-            <!-- Match 1: Girona vs MC Alger -->
-            <div class="match">
-                <div class="team">
-                    <img src="https://img.sofascore.com/api/v1/team/42204/image" alt="Girona Logo">
-                    <p>MC Alger</p>
-                </div>
-                <div class="match-details">
-                    <img src="https://images.fotmob.com/image_resources/logo/leaguelogo/47.png" class="competition-logo" alt="Competition Logo">
-                    <p class="competition-name">Premier League</p>
-                    <p class="time" id="match-time-1">Today At: 13:00 GMT+1</p>
-                    <p class="countdown" id="countdown-1">Match starts in: 02:00:00</p>
-                    <div class="starts-soon-button" id="starts-soon-button-1">
-                        <a href="https://www.example.com/stream" target="_blank">Starts Soon</a>
-                    </div>
-                    <div class="live-button" id="live-button-1">
-                        <a href="https://www.example.com/stream" target="_blank">LIVE NOW!</a>
-                    </div>
-                    <div class="ended-button" id="ended-button-1" style="display: none;">Match Ended</div>
-                </div>
-                <div class="team">
-                    <img src="https://img.sofascore.com/api/v1/team/42204/image" alt="MC Alger Logo">
-                    <p>MC Alger</p>
-                </div>
-            </div>
-
-            <!-- Match 2: Dinamo vs Celtic -->
-            <div class="match">
-                <div class="team">
-                    <img src="https://img.sofascore.com/api/v1/team/42204/image" alt="Dinamo Logo">
-                    <p>Dinamo</p>
-                </div>
-                <div class="match-details">
-                    <img src="https://images.fotmob.com/image_resources/logo/leaguelogo/47.png" class="competition-logo" alt="Competition Logo">
-                    <p class="competition-name">Premier League</p>
-                    <p class="time" id="match-time-2">Today At: 20:00 GMT+1</p>
-                    <p class="countdown" id="countdown-2">Match starts in: 08:00:00</p>
-                    <div class="starts-soon-button" id="starts-soon-button-2">
-                        <a href="https://www.example.com/stream" target="_blank">Starts Soon</a>
-                    </div>
-                    <div class="live-button" id="live-button-2">
-                        <a href="https://www.example.com/stream" target="_blank">LIVE NOW!</a>
-                    </div>
-                    <div class="ended-button" id="ended-button-2" style="display: none;">Match Ended</div>
-                </div>
-                <div class="team">
-                    <img src="https://img.sofascore.com/api/v1/team/42204/image" alt="Celtic Logo">
-                    <p>Celtic</p>
-                </div>
-            </div>
-
-            <!-- Additional Matches -->
-            <!-- Match 3: Team A vs Team B -->
-            <div class="match">
-                <div class="team">
-                    <img src="https://img.sofascore.com/api/v1/team/42204/image" alt="Team A Logo">
-                    <p>Team A</p>
-                </div>
-                <div class="match-details">
-                    <img src="https://images.fotmob.com/image_resources/logo/leaguelogo/47.png" class="competition-logo" alt="Competition Logo">
-                    <p class="competition-name">Premier League</p>
-                    <p class="time" id="match-time-3">Today At: 15:00 GMT+1</p>
-                    <p class="countdown" id="countdown-3">Match starts in: 04:00:00</p>
-                    <div class="starts-soon-button" id="starts-soon-button-3">
-                        <a href="https://www.example.com/stream" target="_blank">Starts Soon</a>
-                    </div>
-                    <div class="live-button" id="live-button-3">
-                        <a href="https://www.example.com/stream" target="_blank">LIVE NOW!</a>
-                    </div>
-                    <div class="ended-button" id="ended-button-3" style="display: none;">Match Ended</div>
-                </div>
-                <div class="team">
-                    <img src="https://img.sofascore.com/api/v1/team/42204/image" alt="Team B Logo">
-                    <p>Team B</p>
-                </div>
-            </div>
-
-            <!-- Match 4: Team C vs Team D -->
-            <div class="match">
-                <div class="team">
-                    <img src="https://img.sofascore.com/api/v1/team/42204/image" alt="Team C Logo">
-                    <p>Team C</p>
-                </div>
-                <div class="match-details">
-                    <img src="https://images.fotmob.com/image_resources/logo/leaguelogo/47.png" class="competition-logo" alt="Competition Logo">
-                    <p class="competition-name">Premier League</p>
-                    <p class="time" id="match-time-4">Today At: 16:00 GMT+1</p>
-                    <p class="countdown" id="countdown-4">Match starts in: 06:00:00</p>
-                    <div class="starts-soon-button" id="starts-soon-button-4">
-                        <a href="https://www.example.com/stream" target="_blank">Starts Soon</a>
-                    </div>
-                    <div class="live-button" id="live-button-4">
-                        <a href="https://www.example.com/stream" target="_blank">LIVE NOW!</a>
-                    </div>
-                    <div class="ended-button" id="ended-button-4" style="display: none;">Match Ended</div>
-                </div>
-                <div class="team">
-                    <img src="https://img.sofascore.com/api/v1/team/42204/image" alt="Team D Logo">
-                    <p>Team D</p>
-                </div>
-            </div>
-
-            <!-- More matches... -->
-            <!-- Repeat the pattern for matches 5 to 10 -->
-        </div>
+        <div class="match-schedule" id="match-schedule"></div>
     </div>
 
     <script>
-        // Function to update the button when the match starts
+        // Matches data - easily extendable
+        const matches = [
+            {
+                team1: { name: "Girona", logo: "https://img.sofascore.com/api/v1/team/42204/image" },
+                team2: { name: "MC Alger", logo: "https://img.sofascore.com/api/v1/team/42204/image" },
+                competitionLogo: "https://images.fotmob.com/image_resources/logo/leaguelogo/47.png",
+                competitionName: "Premier League",
+                matchTime: '2024-12-16T10:00:00Z', // UTC time
+                streamUrl: "https://www.example.com/stream"
+            },
+            {
+                team1: { name: "Dinamo", logo: "https://img.sofascore.com/api/v1/team/42204/image" },
+                team2: { name: "Celtic", logo: "https://img.sofascore.com/api/v1/team/42204/image" },
+                competitionLogo: "https://images.fotmob.com/image_resources/logo/leaguelogo/47.png",
+                competitionName: "Premier League",
+                matchTime: '2024-12-19T10:00:00Z', // UTC time
+                streamUrl: "https://www.example.com/stream"
+            },
+             {
+                team1: { name: "Dinamo", logo: "https://img.sofascore.com/api/v1/team/42204/image" },
+                team2: { name: "Celtic", logo: "https://img.sofascore.com/api/v1/team/42204/image" },
+                competitionLogo: "https://images.fotmob.com/image_resources/logo/leaguelogo/47.png",
+                competitionName: "Premier League",
+                matchTime: '2024-12-19T16:00:00Z', // UTC time
+                streamUrl: "https://www.example.com/stream"
+            },
+            {
+                team1: { name: "Team A", logo: "https://img.sofascore.com/api/v1/team/42204/image" },
+                team2: { name: "Team B", logo: "https://img.sofascore.com/api/v1/team/42204/image" },
+                competitionLogo: "https://images.fotmob.com/image_resources/logo/leaguelogo/47.png",
+                competitionName: "Premier League",
+                matchTime: '2024-12-16T13:00:00Z', // UTC time
+                streamUrl: "https://www.example.com/stream"
+            }
+            // Add more matches here...
+        ];
+
+        // Function to create match card HTML
+        function createMatchCard(match, index) {
+            return `
+                <div class="match">
+                    <div class="team">
+                        <img src="${match.team1.logo}" alt="${match.team1.name} Logo">
+                        <p>${match.team1.name}</p>
+                    </div>
+                    <div class="match-details">
+                        <img src="${match.competitionLogo}" class="competition-logo" alt="Competition Logo">
+                        <p class="competition-name">${match.competitionName}</p>
+                        <p class="time" id="match-time-${index}">Today At: ${convertToLocalTime(match.matchTime)}</p>
+                        <p class="countdown" id="countdown-${index}">Match starts in: 00:00:00</p>
+                        <div class="starts-soon-button" id="starts-soon-button-${index}">
+                            <a href="${match.streamUrl}" target="_blank">Starts Soon</a>
+                        </div>
+                        <div class="live-button" id="live-button-${index}">
+                            <a href="${match.streamUrl}" target="_blank">LIVE NOW!</a>
+                        </div>
+                        <div class="ended-button" id="ended-button-${index}" style="display: none;">Match Ended</div>
+                    </div>
+                    <div class="team">
+                        <img src="${match.team2.logo}" alt="${match.team2.name} Logo">
+                        <p>${match.team2.name}</p>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Function to update match status
         function updateMatchStatus(matchId, matchTime) {
             const matchStartTime = new Date(matchTime).getTime();
             const matchEndTime = matchStartTime + 2 * 60 * 60 * 1000; // 2 hours after match time
@@ -377,24 +339,21 @@
             const matchTimeElement = document.getElementById(`match-time-${matchId}`);
             const countdownElement = document.getElementById(`countdown-${matchId}`);
 
-            // Check if the match time has passed
             if (currentTime >= matchEndTime) {
                 document.getElementById(`ended-button-${matchId}`).style.display = "inline-block";
                 document.getElementById(`live-button-${matchId}`).style.display = "none";
                 document.getElementById(`starts-soon-button-${matchId}`).style.display = "none";
-                matchTimeElement.style.display = "none"; // Hide match time text
-                countdownElement.style.display = "none"; // Hide countdown text
+                matchTimeElement.style.display = "none";
+                countdownElement.style.display = "none";
             } else if (currentTime >= matchStartTime - 5 * 60 * 1000) {
-                // 5 minutes before the match starts, show the "LIVE NOW!" button
                 document.getElementById(`live-button-${matchId}`).style.display = "inline-block";
                 document.getElementById(`starts-soon-button-${matchId}`).style.display = "none";
-                matchTimeElement.style.display = "none"; // Hide match time text
-                countdownElement.style.display = "none"; // Hide countdown text
+                matchTimeElement.style.display = "none";
+                countdownElement.style.display = "none";
             } else if (currentTime >= matchStartTime - 30 * 60 * 1000) {
-                // 30 minutes before the match starts, show the "Starts Soon" button
                 document.getElementById(`starts-soon-button-${matchId}`).style.display = "inline-block";
                 document.getElementById(`live-button-${matchId}`).style.display = "none";
-                countdownElement.style.display = "none"; // Hide countdown text
+                countdownElement.style.display = "none";
             } else {
                 let remainingTime = matchStartTime - currentTime;
                 let hours = Math.floor(remainingTime / (1000 * 60 * 60));
@@ -404,7 +363,7 @@
             }
         }
 
-        // Function to convert the UTC match time to the user's local time (GMT+1)
+        // Function to convert UTC to local time (GMT+1)
         function convertToLocalTime(utcTime) {
             const matchDate = new Date(utcTime);
             const options = {
@@ -412,34 +371,18 @@
                 minute: '2-digit',
                 hour12: false,
                 timeZoneName: 'short',
-                timeZone: 'Europe/Paris' // This represents GMT+1, adjust accordingly
+                timeZone: 'Europe/Paris'
             };
             const localTime = new Intl.DateTimeFormat('en-GB', options).format(matchDate);
             return localTime;
         }
 
-        // Set match times in UTC and initialize the buttons
-        const matchTime1 = '2024-12-16T10:00:00Z'; // Match 1 in UTC (13:00 GMT+1)
-        const matchTime2 = '2024-12-16T16:00:00Z'; // Match 2 in UTC (20:00 GMT+1)
-        const matchTime3 = '2024-12-16T13:00:00Z'; // Match 3
-        const matchTime4 = '2024-12-16T14:00:00Z'; // Match 4
-        // Add additional match times here...
-
-        // Convert match times and set them on the page
-        document.getElementById('match-time-1').textContent = `Today At: ${convertToLocalTime(matchTime1)}`;
-        document.getElementById('match-time-2').textContent = `Today At: ${convertToLocalTime(matchTime2)}`;
-        document.getElementById('match-time-3').textContent = `Today At: ${convertToLocalTime(matchTime3)}`;
-        document.getElementById('match-time-4').textContent = `Today At: ${convertToLocalTime(matchTime4)}`;
-        // Set additional match times here...
-
-        // Initialize match status
-        setInterval(() => {
-            updateMatchStatus(1, matchTime1);
-            updateMatchStatus(2, matchTime2);
-            updateMatchStatus(3, matchTime3);
-            updateMatchStatus(4, matchTime4);
-            // Add other match statuses here...
-        }, 0); // Update every second for countdown
+        // Generate and display all matches
+        const matchSchedule = document.getElementById('match-schedule');
+        matches.forEach((match, index) => {
+            matchSchedule.innerHTML += createMatchCard(match, index);
+            setInterval(() => updateMatchStatus(index, match.matchTime), 00);
+        });
     </script>
 </body>
 </html>
