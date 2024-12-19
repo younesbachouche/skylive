@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, proxy-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <title>Live Match Schedule</title>
     <style>
         * {
@@ -264,6 +267,20 @@
     </div>
 
     <script>
+        // Disable right-click to prevent easy access to the context menu
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+        });
+
+        // Disable Ctrl + U and other key combinations
+        document.addEventListener('keydown', function(e) {
+            if ((e.ctrlKey && e.key === 'u') || 
+                (e.ctrlKey && e.shiftKey && e.key === 'I') || 
+                (e.ctrlKey && e.key === 's')) {
+                e.preventDefault();
+            }
+        });
+
         // Matches data - easily extendable
         const matches = [
             {
@@ -381,7 +398,7 @@
         const matchSchedule = document.getElementById('match-schedule');
         matches.forEach((match, index) => {
             matchSchedule.innerHTML += createMatchCard(match, index);
-            setInterval(() => updateMatchStatus(index, match.matchTime), 00);
+            setInterval(() => updateMatchStatus(index, match.matchTime), 0);
         });
     </script>
 </body>
