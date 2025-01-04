@@ -108,6 +108,7 @@
             font-weight: regular;
             display: none;
             width: auto;
+            cursor: pointer;
         }
 
         .starts-soon-button {
@@ -142,6 +143,46 @@
             font-size: 14px;
             color: #B3994C;
             margin-top: 5px;
+        }
+
+        /* Floating Popup */
+        .floating-popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            max-width: 800px;
+            height: 80vh;
+            background-color: rgba(0, 0, 0, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            z-index: 1001;
+            display: none;
+        }
+
+        .floating-popup iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 10px;
+        }
+
+        .close-popup {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: red;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         @media (max-width: 1024px) {
@@ -255,6 +296,11 @@
                 font-size: 12px;
                 width: 100%;
             }
+
+            .floating-popup {
+                width: 95%;
+                height: 60vh;
+            }
         }
     </style>
 </head>
@@ -264,6 +310,12 @@
             <h1>Sky Live by Younes</h1>
         </header>
         <div class="match-schedule" id="match-schedule"></div>
+    </div>
+
+    <!-- Floating Popup -->
+    <div class="floating-popup" id="floating-popup">
+        <button class="close-popup" id="close-popup">×</button>
+        <iframe id="stream-iframe" src="" allowfullscreen></iframe>
     </div>
 
     <script>
@@ -283,15 +335,15 @@
 
         // Matches data - easily extendable
         const matches = [
-             {
+            {
                 team1: { name: "Juventus", logo: "https://img.sofascore.com/api/v1/team/2687/image" },
                 team2: { name: "Milan", logo: "https://img.sofascore.com/api/v1/team/2692/image" },
                 competitionLogo: "https://images.fotmob.com/image_resources/logo/leaguelogo/222.png",
                 competitionName: "Italian Super Cup",
-                matchTime: '2025-01-03T19:00:00Z', // UTC time
+                matchTime: '2025-01-04T03:00:00Z', // UTC time
                 streamUrl: "https://player.hd7live.xyz/ch/3/1/34a41763d8dd3d96f2e85374e5e60e26e22120b381fd8d3e63f3d43f4706975e"
             },
-              {
+            {
                 team1: { name: "CR Belouizded", logo: "https://img.sofascore.com/api/v1/team/42207/image" },
                 team2: { name: "Al Ahly", logo: "https://img.sofascore.com/api/v1/team/6910/image" },
                 competitionLogo: "https://images.fotmob.com/image_resources/logo/leaguelogo/526.png",
@@ -299,9 +351,7 @@
                 matchTime: '2025-01-03T19:00:00Z', // UTC time
                 streamUrl: "https://player.hd7live.xyz/ch/15/1/2602319e10836780a21c49eb576ec3a8076e137087261c9346f95bec15a3ef63"
             },
-            
-            
-             {
+            {
                 team1: { name: "Real Madrid", logo: "https://img.sofascore.com/api/v1/team/2829/image" },
                 team2: { name: "Valencia", logo: "https://img.sofascore.com/api/v1/team/2828/image" },
                 competitionLogo: "https://images.fotmob.com/image_resources/logo/leaguelogo/87.png",
@@ -309,9 +359,6 @@
                 matchTime: '2025-01-03T20:00:00Z', // UTC time
                 streamUrl: "https://player.hd7live.xyz/ch/3/1/954158d2d3c79579ad51b03ff2c3c0cc6d9eb244444b68ab94f1b2abfc1fca73"
             },
-           
-           
-           
             // Add more matches here...
         ];
 
@@ -329,10 +376,10 @@
                         <p class="time" id="match-time-${index}">Today At: ${convertToLocalTime(match.matchTime)}</p>
                         <p class="countdown" id="countdown-${index}">Match starts in: 00:00:00</p>
                         <div class="starts-soon-button" id="starts-soon-button-${index}">
-                            <a href="${match.streamUrl}" target="_blank">Starts Soon</a>
+                            <a href="#" onclick="openStreamPopup('${match.streamUrl}')">Starts Soon</a>
                         </div>
                         <div class="live-button" id="live-button-${index}">
-                            <a href="${match.streamUrl}" target="_blank">LIVE NOW!</a>
+                            <a href="#" onclick="openStreamPopup('${match.streamUrl}')">LIVE NOW!</a>
                         </div>
                         <div class="ended-button" id="ended-button-${index}" style="display: none;">Match Ended</div>
                     </div>
@@ -391,11 +438,27 @@
             return localTime;
         }
 
+        // Function to open the stream in a floating popup
+        function openStreamPopup(streamUrl) {
+            const popup = document.getElementById('floating-popup');
+            const iframe = document.getElementById('stream-iframe');
+            iframe.src = streamUrl;
+            popup.style.display = 'block';
+        }
+
+        // Function to close the floating popup
+        document.getElementById('close-popup').addEventListener('click', function() {
+            const popup = document.getElementById('floating-popup');
+            const iframe = document.getElementById('stream-iframe');
+            iframe.src = ''; // Stop the stream
+            popup.style.display = 'none';
+        });
+
         // Generate and display all matches
         const matchSchedule = document.getElementById('match-schedule');
         matches.forEach((match, index) => {
             matchSchedule.innerHTML += createMatchCard(match, index);
-            setInterval(() => updateMatchStatus(index, match.matchTime), );
+            setInterval(() => updateMatchStatus(index, match.matchTime), 0);
         });
     </script>
 </body>
