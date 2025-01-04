@@ -168,10 +168,11 @@
             border-radius: 10px;
         }
 
+        /* Close button positioned above the popup */
         .close-popup {
             position: absolute;
-            top: 10px;
-            right: 10px;
+            top: -15px; /* Positioned above the popup */
+            right: -15px; /* Positioned to the right of the popup */
             background-color: red;
             color: white;
             border: none;
@@ -183,6 +184,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
 
         @media (max-width: 1024px) {
@@ -300,6 +302,14 @@
             .floating-popup {
                 width: 95%;
                 height: 60vh;
+            }
+
+            .close-popup {
+                top: -10px;
+                right: -10px;
+                width: 25px;
+                height: 25px;
+                font-size: 14px;
             }
         }
     </style>
@@ -458,7 +468,7 @@
         const matchSchedule = document.getElementById('match-schedule');
         matches.forEach((match, index) => {
             matchSchedule.innerHTML += createMatchCard(match, index);
-            setInterval(() => updateMatchStatus(index, match.matchTime), 0);
+            setInterval(() => updateMatchStatus(index, match.matchTime), 00);
         });
     </script>
 </body>
