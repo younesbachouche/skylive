@@ -20,6 +20,13 @@
             background-color: #f0f0f0;
             color: #333;
             padding: 20px 0;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* Dark mode */
+        body.dark-mode {
+            background-color: #121212;
+            color: #ffffff;
         }
 
         .container {
@@ -29,10 +36,31 @@
             text-align: center;
         }
 
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
         header h1 {
             font-size: 36px;
-            margin-bottom: 20px;
-            color: #333;
+            color: inherit;
+        }
+
+        .dark-mode-toggle {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 24px;
+            color: inherit;
+        }
+
+        .dark-mode-toggle span {
+            font-size: 16px;
         }
 
         .match-schedule {
@@ -54,6 +82,12 @@
             max-width: 1000px;
             margin: 0 auto;
             box-sizing: border-box;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        body.dark-mode .match {
+            background-color: #1e1e1e;
+            color: #ffffff;
         }
 
         .team {
@@ -89,10 +123,18 @@
             color: #666;
         }
 
+        body.dark-mode .time {
+            color: #aaa;
+        }
+
         .countdown {
             font-size: 18px;
             color: #666;
             margin-top: 10px;
+        }
+
+        body.dark-mode .countdown {
+            color: #aaa;
         }
 
         .live-button,
@@ -318,6 +360,9 @@
     <div class="container">
         <header>
             <h1>Sky Live by Younes</h1>
+            <button class="dark-mode-toggle" id="dark-mode-toggle">
+                🌙 <span>Dark Mode</span>
+            </button>
         </header>
         <div class="match-schedule" id="match-schedule"></div>
     </div>
@@ -329,6 +374,24 @@
     </div>
 
     <script>
+        // Dark mode toggle functionality
+        const darkModeToggle = document.getElementById('dark-mode-toggle');
+        const body = document.body;
+
+        darkModeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            const isDarkMode = body.classList.contains('dark-mode');
+            darkModeToggle.innerHTML = isDarkMode ? '☀️ <span>Light Mode</span>' : '🌙 <span>Dark Mode</span>';
+            localStorage.setItem('dark-mode', isDarkMode);
+        });
+
+        // Check for saved dark mode preference
+        const savedDarkMode = localStorage.getItem('dark-mode');
+        if (savedDarkMode === 'true') {
+            body.classList.add('dark-mode');
+            darkModeToggle.innerHTML = '☀️ <span>Light Mode</span>';
+        }
+
         // Disable right-click to prevent easy access to the context menu
         document.addEventListener('contextmenu', function(e) {
             e.preventDefault();
