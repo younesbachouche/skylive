@@ -601,7 +601,7 @@
         // Display ongoing or upcoming matches first
         ongoingOrUpcoming.forEach((match, index) => {
             matchSchedule.innerHTML += createMatchCard(match, index);
-            setInterval(() => updateMatchStatus(index, match.matchTime), 1000);
+            setInterval(() => updateMatchStatus(index, match.matchTime),0);
         });
 
         // Display ended matches at the bottom
