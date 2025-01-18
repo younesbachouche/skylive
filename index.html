@@ -412,12 +412,11 @@
                 team1: { name: "Young Africans", logo: "https://img.sofascore.com/api/v1/team/134320/image" },
                 team2: { name: "MC Alger", logo: "https://img.sofascore.com/api/v1/team/42204/image" },
                 competitionLogo: "https://img.sofascore.com/api/v1/unique-tournament/1054/image",
-                competitionName: "CAF Champioans League",
+                competitionName: "CAF Champions League",
                 matchTime: '2025-01-18T13:00:00Z', // UTC time
                 streamUrl: "https://3333.koora-live.video/hls/0/stream.m3u8"
             },
-
-             {
+            {
                 team1: { name: "Brentford", logo: "https://img.sofascore.com/api/v1/team/50/image" },
                 team2: { name: "Liverpool", logo: "https://img.sofascore.com/api/v1/team/44/image" },
                 competitionLogo: "https://img.sofascore.com/api/v1/unique-tournament/17/image",
@@ -445,12 +444,11 @@
                 team1: { name: "Al Ahly", logo: "https://img.sofascore.com/api/v1/team/6910/image" },
                 team2: { name: "Orlando Pirates", logo: "https://img.sofascore.com/api/v1/team/7668/image" },
                 competitionLogo: "https://img.sofascore.com/api/v1/unique-tournament/1054/image",
-                competitionName: "CAF Champioans League",
+                competitionName: "CAF Champions League",
                 matchTime: '2025-01-18T16:00:00Z', // UTC time
                 streamUrl: "https://30.koora-live.video/hls/0/stream.m3u8"
             },
-
-{
+            {
                 team1: { name: "Juventus", logo: "https://img.sofascore.com/api/v1/team/2687/image" },
                 team2: { name: "Milan", logo: "https://img.sofascore.com/api/v1/team/2692/image" },
                 competitionLogo: "https://img.sofascore.com/api/v1/unique-tournament/23/image",
@@ -458,16 +456,14 @@
                 matchTime: '2025-01-18T17:00:00Z', // UTC time
                 streamUrl: "https://nametopallsite.click/live/5/chunks.m3u8?bongls.com"
             },
-
             {
                 team1: { name: "Arsenal", logo: "https://img.sofascore.com/api/v1/team/42/image" },
                 team2: { name: "Aston Villa", logo: "https://img.sofascore.com/api/v1/team/40/image" },
                 competitionLogo: "https://img.sofascore.com/api/v1/unique-tournament/17/image",
                 competitionName: "Premier League",
                 matchTime: '2025-01-18T17:30:00Z', // UTC time
-                streamUrl: "https://scostelaviret.xyz/live/1/chunks.m3u8?bongls.com"
+                streamUrl: "https://echocraft.store/live/3/chunks.m3u8?bongls.com"
             },
-
             {
                 team1: { name: "Atalanta", logo: "https://img.sofascore.com/api/v1/team/2686/image" },
                 team2: { name: "Napoli", logo: "https://img.sofascore.com/api/v1/team/2714/image" },
@@ -476,8 +472,27 @@
                 matchTime: '2025-01-18T19:45:00Z', // UTC time
                 streamUrl: "https://nametopallsite.click/live/5/chunks.m3u8?bongls.com"
             },
-            
         ];
+
+        // Function to sort matches into ongoing/upcoming and ended
+        function sortMatches(matches) {
+            const now = new Date().getTime();
+            const ongoingOrUpcoming = [];
+            const ended = [];
+
+            matches.forEach(match => {
+                const matchStartTime = new Date(match.matchTime).getTime();
+                const matchEndTime = matchStartTime + 2 * 60 * 60 * 1000; // 2 hours after match time
+
+                if (now >= matchEndTime) {
+                    ended.push(match);
+                } else {
+                    ongoingOrUpcoming.push(match);
+                }
+            });
+
+            return { ongoingOrUpcoming, ended };
+        }
 
         // Function to create match card HTML
         function createMatchCard(match, index) {
@@ -571,11 +586,20 @@
             popup.style.display = 'none';
         });
 
-        // Generate and display all matches
+        // Sort matches and display them
+        const { ongoingOrUpcoming, ended } = sortMatches(matches);
         const matchSchedule = document.getElementById('match-schedule');
-        matches.forEach((match, index) => {
+
+        // Display ongoing or upcoming matches first
+        ongoingOrUpcoming.forEach((match, index) => {
             matchSchedule.innerHTML += createMatchCard(match, index);
-            setInterval(() => updateMatchStatus(index, match.matchTime), 00);
+            setInterval(() => updateMatchStatus(index, match.matchTime), 1000);
+        });
+
+        // Display ended matches at the bottom
+        ended.forEach((match, index) => {
+            matchSchedule.innerHTML += createMatchCard(match, ongoingOrUpcoming.length + index);
+            updateMatchStatus(ongoingOrUpcoming.length + index, match.matchTime);
         });
     </script>
 </body>
