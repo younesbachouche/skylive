@@ -7,6 +7,7 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
     <title>Sky Live by Younes</title>
+    <script src="https://cdn.jsdelivr.net/npm/clappr@latest/dist/clappr.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -203,18 +204,19 @@
             display: none;
         }
 
-        .floating-popup iframe {
+        /* Player Container */
+        #player-container {
             width: 100%;
             height: 100%;
-            border: none;
             border-radius: 10px;
+            position: relative;
         }
 
-        /* Close button positioned above the popup */
+        /* Close button positioned above the player */
         .close-popup {
             position: absolute;
-            top: -15px; /* Positioned above the popup */
-            right: -15px; /* Positioned to the right of the popup */
+            top: -15px;
+            right: -15px;
             background-color: red;
             color: white;
             border: none;
@@ -227,6 +229,7 @@
             align-items: center;
             justify-content: center;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            z-index: 1002; /* Ensure it's above the player */
         }
 
         @media (max-width: 1024px) {
@@ -367,14 +370,12 @@
         <div class="match-schedule" id="match-schedule"></div>
     </div>
 
-    <!-- Floating Popup -->
     <div class="floating-popup" id="floating-popup">
         <button class="close-popup" id="close-popup">×</button>
-        <iframe id="stream-iframe" src="" allowfullscreen></iframe>
+        <div id="player-container"></div>
     </div>
 
     <script>
-        // Dark mode toggle functionality
         const darkModeToggle = document.getElementById('dark-mode-toggle');
         const body = document.body;
 
@@ -385,19 +386,16 @@
             localStorage.setItem('dark-mode', isDarkMode);
         });
 
-        // Check for saved dark mode preference
         const savedDarkMode = localStorage.getItem('dark-mode');
         if (savedDarkMode === 'true') {
             body.classList.add('dark-mode');
             darkModeToggle.innerHTML = '☀️ <span>Light Mode</span>';
         }
 
-        // Disable right-click to prevent easy access to the context menu
         document.addEventListener('contextmenu', function(e) {
             e.preventDefault();
         });
 
-        // Disable Ctrl + U and other key combinations
         document.addEventListener('keydown', function(e) {
             if ((e.ctrlKey && e.key === 'u') || 
                 (e.ctrlKey && e.shiftKey && e.key === 'I') || 
@@ -408,10 +406,16 @@
 
         // Matches data - easily extendable
         const matches = [
-
-
-            
-{
+        
+            {
+                team1: { name: "Leipzig", logo: "https://img.sofascore.com/api/v1/team/36360/image" },
+                team2: { name: "Sporting", logo: "https://img.sofascore.com/api/v1/team/3001/image" },
+                competitionLogo: "https://img.sofascore.com/api/v1/unique-tournament/7/image",
+                competitionName: "Champions League",
+                matchTime: '2025-01-22T03:45:00Z', // UTC time
+                streamUrl: "https://sslideaweb.store/live/1/chunks.m3u8?bongls.com"
+            },
+            {
                 team1: { name: "Leipzig", logo: "https://img.sofascore.com/api/v1/team/36360/image" },
                 team2: { name: "Sporting", logo: "https://img.sofascore.com/api/v1/team/3001/image" },
                 competitionLogo: "https://img.sofascore.com/api/v1/unique-tournament/7/image",
@@ -495,13 +499,8 @@
                 streamUrl: "https://marketingnets.site/live/5/chunks.m3u8?bongls.com"
             },
 
-            
-          
-                         
-            
         ];
 
-        // Function to sort matches into ongoing/upcoming and ended
         function sortMatches(matches) {
             const now = new Date().getTime();
             const ongoingOrUpcoming = [];
@@ -521,7 +520,6 @@
             return { ongoingOrUpcoming, ended };
         }
 
-        // Function to create match card HTML
         function createMatchCard(match, index) {
             return `
                 <div class="match">
@@ -550,7 +548,6 @@
             `;
         }
 
-        // Function to update match status
         function updateMatchStatus(matchId, matchTime) {
             const matchStartTime = new Date(matchTime).getTime();
             const matchEndTime = matchStartTime + 2 * 60 * 60 * 1000; // 2 hours after match time
@@ -583,7 +580,6 @@
             }
         }
 
-        // Function to convert UTC to local time (GMT+1)
         function convertToLocalTime(utcTime) {
             const matchDate = new Date(utcTime);
             const options = {
@@ -597,33 +593,56 @@
             return localTime;
         }
 
-        // Function to open the stream in a floating popup
+        let player;
         function openStreamPopup(streamUrl) {
             const popup = document.getElementById('floating-popup');
-            const iframe = document.getElementById('stream-iframe');
-            iframe.src = streamUrl;
             popup.style.display = 'block';
+
+            player = new Clappr.Player({
+                source: streamUrl,
+                parentId: '#player-container',
+                height: '100%',
+                width: '100%',
+                plugins: [TitlePlugin],
+                title: 'SkyLive by Younes',
+            });
         }
 
-        // Function to close the floating popup
         document.getElementById('close-popup').addEventListener('click', function() {
             const popup = document.getElementById('floating-popup');
-            const iframe = document.getElementById('stream-iframe');
-            iframe.src = ''; // Stop the stream
             popup.style.display = 'none';
+            if (player) {
+                player.destroy(); 
+            }
         });
 
-        // Sort matches and display them
+        const TitlePlugin = Clappr.CorePlugin.extend({
+            bindEvents() {
+                this.listenTo(this.core.mediaControl, Clappr.Events.MEDIACONTROL_CONTAINERCHANGED, this.addTitle);
+            },
+            addTitle() {
+                const title = this.options.title || 'SkyLive by Younes';
+                const titleElement = document.createElement('div');
+                titleElement.style.position = 'absolute';
+                titleElement.style.bottom = '10px';
+                titleElement.style.left = '10px';
+                titleElement.style.color = '#fff';
+                titleElement.style.fontSize = '14px';
+                titleElement.style.zIndex = '1000';
+                titleElement.textContent = title;
+                this.core.mediaControl.$el.append(titleElement);
+            },
+        });
+
         const { ongoingOrUpcoming, ended } = sortMatches(matches);
         const matchSchedule = document.getElementById('match-schedule');
 
-        // Display ongoing or upcoming matches first
         ongoingOrUpcoming.forEach((match, index) => {
             matchSchedule.innerHTML += createMatchCard(match, index);
-            setInterval(() => updateMatchStatus(index, match.matchTime),0);
+            updateMatchStatus(index, match.matchTime); // Update immediately
+            setInterval(() => updateMatchStatus(index, match.matchTime),); // Update every second
         });
 
-        // Display ended matches at the bottom
         ended.forEach((match, index) => {
             matchSchedule.innerHTML += createMatchCard(match, ongoingOrUpcoming.length + index);
             updateMatchStatus(ongoingOrUpcoming.length + index, match.matchTime);
@@ -631,4 +650,3 @@
     </script>
 </body>
 </html>
-
