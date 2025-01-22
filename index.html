@@ -207,7 +207,7 @@
         /* Player Container */
         #player-container {
             width: 100%;
-            height: 100%;
+            height: calc(100% - 60px); /* Adjust height to accommodate buttons */
             border-radius: 10px;
             position: relative;
         }
@@ -230,6 +230,41 @@
             justify-content: center;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
             z-index: 1002; /* Ensure it's above the player */
+        }
+
+        /* Buttons above the player */
+        .stream-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            padding: 10px;
+            background-color: rgba(0, 0, 0, 0.8);
+            border-radius: 10px 10px 0 0;
+        }
+
+        .ios-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: red;
+            color: white;
+            text-align: center;
+            border-radius: 20px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .ios-button:hover {
+            background-color: #cc0000;
+            transform: scale(1.05);
+        }
+
+        .ios-button:active {
+            background-color: #990000;
+            transform: scale(0.95);
         }
 
         @media (max-width: 1024px) {
@@ -372,6 +407,10 @@
 
     <div class="floating-popup" id="floating-popup">
         <button class="close-popup" id="close-popup">×</button>
+        <div class="stream-buttons" id="stream-buttons">
+            <button class="ios-button" id="english-button">English</button>
+            <button class="ios-button" id="arabic-button">Arabic</button>
+        </div>
         <div id="player-container"></div>
     </div>
 
@@ -406,92 +445,87 @@
 
         // Matches data - easily extendable
         const matches = [
-        
-          
             {
                 team1: { name: "Leipzig", logo: "https://img.sofascore.com/api/v1/team/36360/image" },
                 team2: { name: "Sporting", logo: "https://img.sofascore.com/api/v1/team/3001/image" },
                 competitionLogo: "https://img.sofascore.com/api/v1/unique-tournament/7/image",
                 competitionName: "Champions League",
                 matchTime: '2025-01-22T17:45:00Z', // UTC time
-                streamUrl: "https://scostelaviret.xyz/live/1/chunks.m3u8?bongls.com"
+                streamUrlEnglish: "https://sslideaweb.store/live/1/chunks.m3u8?bongls.com",
+                streamUrlArabic: "https://3.hajma.online/hls/0/stream.m3u8"
             },
-
             {
                 team1: { name: "Shakhtar", logo: "https://img.sofascore.com/api/v1/team/3313/image" },
                 team2: { name: "Brest", logo: "https://img.sofascore.com/api/v1/team/1715/image" },
                 competitionLogo: "https://img.sofascore.com/api/v1/unique-tournament/7/image",
                 competitionName: "Champions League",
                 matchTime: '2025-01-22T17:45:00Z', // UTC time
-                streamUrl: "https://pulselink.my/live/2/chunks.m3u8?bongls.com"
+                streamUrlEnglish: "https://pulselink.my/live/2/chunks.m3u8?bongls.com",
+                streamUrlArabic: "https://pulselink.my/live/3/chunks.m3u8?bongls.com"
             },
-
-
-{
+            {
                 team1: { name: "PSG", logo: "https://img.sofascore.com/api/v1/team/1644/image" },
                 team2: { name: "Man City", logo: "https://img.sofascore.com/api/v1/team/17/image" },
                 competitionLogo: "https://img.sofascore.com/api/v1/unique-tournament/7/image",
                 competitionName: "Champions League",
                 matchTime: '2025-01-22T20:00:00Z', // UTC time
-                streamUrl: "https://handshakegen.xyz/live/6/chunks.m3u8?bongls.com"
+                streamUrlEnglish: "https://handshakegen.xyz/live/6/chunks.m3u8?bongls.com",
+                streamUrlArabic: "https://handshakegen.xyz/live/7/chunks.m3u8?bongls.com"
             },
-
-              {
+            {
                 team1: { name: "Real Madrid", logo: "https://img.sofascore.com/api/v1/team/2829/image" },
                 team2: { name: "RB Salzburg", logo: "https://img.sofascore.com/api/v1/team/2046/image" },
                 competitionLogo: "https://img.sofascore.com/api/v1/unique-tournament/7/image",
                 competitionName: "Champions League",
                 matchTime: '2025-01-22T20:00:00Z', // UTC time
-                streamUrl: "https://handshakegen.xyz/live/7/chunks.m3u8?bongls.com"
+                streamUrlEnglish: "https://handshakegen.xyz/live/7/chunks.m3u8?bongls.com",
+                streamUrlArabic: "https://handshakegen.xyz/live/8/chunks.m3u8?bongls.com"
             },
-            
-
-
-             {
+            {
                 team1: { name: "Sparta Praha", logo: "https://img.sofascore.com/api/v1/team/2218/image" },
                 team2: { name: "Inter", logo: "https://img.sofascore.com/api/v1/team/2697/image" },
                 competitionLogo: "https://img.sofascore.com/api/v1/unique-tournament/7/image",
                 competitionName: "Champions League",
                 matchTime: '2025-01-22T20:00:00Z', // UTC time
-                streamUrl: "https://scostelaviret.xyz/live/1/chunks.m3u8?bongls.com"
+                streamUrlEnglish: "https://scostelaviret.xyz/live/1/chunks.m3u8?bongls.com",
+                streamUrlArabic: "https://scostelaviret.xyz/live/2/chunks.m3u8?bongls.com"
             },
-
-             {
+            {
                 team1: { name: "Arsenal", logo: "https://img.sofascore.com/api/v1/team/42/image" },
                 team2: { name: "Dinamo", logo: "https://img.sofascore.com/api/v1/team/2032/image" },
                 competitionLogo: "https://img.sofascore.com/api/v1/unique-tournament/7/image",
                 competitionName: "Champions League",
                 matchTime: '2025-01-22T20:00:00Z', // UTC time
-                streamUrl: "https://sslideaweb.store/live/3/chunks.m3u8?bongls.com"
+                streamUrlEnglish: "https://sslideaweb.store/live/3/chunks.m3u8?bongls.com",
+                streamUrlArabic: "https://sslideaweb.store/live/4/chunks.m3u8?bongls.com"
             },
-
-             {
+            {
                 team1: { name: "Celtic", logo: "https://img.sofascore.com/api/v1/team/2352/image" },
                 team2: { name: "Young Boys", logo: "https://img.sofascore.com/api/v1/team/2445/image" },
                 competitionLogo: "https://img.sofascore.com/api/v1/unique-tournament/7/image",
                 competitionName: "Champions League",
                 matchTime: '2025-01-22T20:00:00Z', // UTC time
-                streamUrl: "https://nametopallsite.click/live/2/chunks.m3u8?bongls.com"
+                streamUrlEnglish: "https://nametopallsite.click/live/2/chunks.m3u8?bongls.com",
+                streamUrlArabic: "https://nametopallsite.click/live/3/chunks.m3u8?bongls.com"
             },
-
-             {
+            {
                 team1: { name: "Feynoord", logo: "https://img.sofascore.com/api/v1/team/2959/image" },
                 team2: { name: "Bayern", logo: "https://img.sofascore.com/api/v1/team/2672/image" },
                 competitionLogo: "https://img.sofascore.com/api/v1/unique-tournament/7/image",
                 competitionName: "Champions League",
                 matchTime: '2025-01-22T20:00:00Z', // UTC time
-                streamUrl: "https://echocraft.store/live/4/chunks.m3u8?bongls.com"
+                streamUrlEnglish: "https://echocraft.store/live/4/chunks.m3u8?bongls.com",
+                streamUrlArabic: "https://echocraft.store/live/5/chunks.m3u8?bongls.com"
             },
-            
-             {
+            {
                 team1: { name: "Milan", logo: "https://img.sofascore.com/api/v1/team/2692/image" },
                 team2: { name: "Girona", logo: "https://img.sofascore.com/api/v1/team/2687/image" },
                 competitionLogo: "https://img.sofascore.com/api/v1/unique-tournament/7/image",
                 competitionName: "Champions League",
                 matchTime: '2025-01-22T20:00:00Z', // UTC time
-                streamUrl: "https://marketingnets.site/live/5/chunks.m3u8?bongls.com"
+                streamUrlEnglish: "https://marketingnets.site/live/5/chunks.m3u8?bongls.com",
+                streamUrlArabic: "https://marketingnets.site/live/6/chunks.m3u8?bongls.com"
             },
-
         ];
 
         function sortMatches(matches) {
@@ -526,10 +560,10 @@
                         <p class="time" id="match-time-${index}">Today At: ${convertToLocalTime(match.matchTime)}</p>
                         <p class="countdown" id="countdown-${index}">Match starts in: 00:00:00</p>
                         <div class="starts-soon-button" id="starts-soon-button-${index}">
-                            <a href="#" onclick="openStreamPopup('${match.streamUrl}')">Starts Soon</a>
+                            <a href="#" onclick="openStreamPopup('${match.streamUrlEnglish}', '${match.streamUrlArabic}')">Starts Soon</a>
                         </div>
                         <div class="live-button" id="live-button-${index}">
-                            <a href="#" onclick="openStreamPopup('${match.streamUrl}')">LIVE NOW!</a>
+                            <a href="#" onclick="openStreamPopup('${match.streamUrlEnglish}', '${match.streamUrlArabic}')">LIVE NOW!</a>
                         </div>
                         <div class="ended-button" id="ended-button-${index}" style="display: none;">Match Ended</div>
                     </div>
@@ -587,10 +621,32 @@
         }
 
         let player;
-        function openStreamPopup(streamUrl) {
+        let currentStreamUrl;
+
+        function openStreamPopup(englishUrl, arabicUrl) {
             const popup = document.getElementById('floating-popup');
             popup.style.display = 'block';
 
+            // Set default stream to English
+            currentStreamUrl = englishUrl;
+            initializePlayer(currentStreamUrl);
+
+            // Add event listeners to buttons
+            document.getElementById('english-button').addEventListener('click', () => {
+                currentStreamUrl = englishUrl;
+                initializePlayer(currentStreamUrl);
+            });
+
+            document.getElementById('arabic-button').addEventListener('click', () => {
+                currentStreamUrl = arabicUrl;
+                initializePlayer(currentStreamUrl);
+            });
+        }
+
+        function initializePlayer(streamUrl) {
+            if (player) {
+                player.destroy();
+            }
             player = new Clappr.Player({
                 source: streamUrl,
                 parentId: '#player-container',
