@@ -410,6 +410,7 @@
         <div class="stream-buttons" id="stream-buttons">
             <button class="ios-button" id="english-button">English</button>
             <button class="ios-button" id="arabic-button">Arabic</button>
+            <button class="ios-button" id="server3-button">Server 3</button>
         </div>
         <div id="player-container"></div>
     </div>
@@ -452,9 +453,10 @@
                 competitionName: "Ligue1 Mobilis",
                 matchTime: '2025-01-24T17:00:00Z', // UTC time
                 streamUrlEnglish: "https://hostnetword.lol/live/1/chunks.m3u8?bongls.com",
-                streamUrlArabic: "https://1c3ed9b946c.muchasgraciasaficion.one/live/lcAZlpPuaQ_sd.m3u8"
+                streamUrlArabic: "https://1c3ed9b946c.muchasgraciasaficion.one/live/lcAZlpPuaQ_sd.m3u8",
+                streamUrlServer3: "https://www.youtube.com/embed/6TaC1abbXg8" // Example YouTube URL
             },
-            
+            // Add more matches here
         ];
 
         function sortMatches(matches) {
@@ -489,10 +491,10 @@
                         <p class="time" id="match-time-${index}">Today At: ${convertToLocalTime(match.matchTime)}</p>
                         <p class="countdown" id="countdown-${index}">Match starts in: 00:00:00</p>
                         <div class="starts-soon-button" id="starts-soon-button-${index}">
-                            <a href="#" onclick="openStreamPopup('${match.streamUrlEnglish}', '${match.streamUrlArabic}')">Starts Soon</a>
+                            <a href="#" onclick="openStreamPopup('${match.streamUrlEnglish}', '${match.streamUrlArabic}', '${match.streamUrlServer3}')">Starts Soon</a>
                         </div>
                         <div class="live-button" id="live-button-${index}">
-                            <a href="#" onclick="openStreamPopup('${match.streamUrlEnglish}', '${match.streamUrlArabic}')">LIVE NOW!</a>
+                            <a href="#" onclick="openStreamPopup('${match.streamUrlEnglish}', '${match.streamUrlArabic}', '${match.streamUrlServer3}')">LIVE NOW!</a>
                         </div>
                         <div class="ended-button" id="ended-button-${index}" style="display: none;">Match Ended</div>
                     </div>
@@ -552,7 +554,7 @@
         let player;
         let currentStreamUrl;
 
-        function openStreamPopup(englishUrl, arabicUrl) {
+        function openStreamPopup(englishUrl, arabicUrl, server3Url) {
             const popup = document.getElementById('floating-popup');
             popup.style.display = 'block';
 
@@ -570,20 +572,42 @@
                 currentStreamUrl = arabicUrl;
                 initializePlayer(currentStreamUrl);
             });
+
+            document.getElementById('server3-button').addEventListener('click', () => {
+                currentStreamUrl = server3Url;
+                initializePlayer(currentStreamUrl);
+            });
         }
 
         function initializePlayer(streamUrl) {
             if (player) {
                 player.destroy();
             }
-            player = new Clappr.Player({
-                source: streamUrl,
-                parentId: '#player-container',
-                height: '100%',
-                width: '100%',
-                plugins: [TitlePlugin],
-                title: 'SkyLive by Younes',
-            });
+
+            // Check if the URL is a YouTube embed
+            if (streamUrl.includes("youtube.com") || streamUrl.includes("youtu.be")) {
+                const playerContainer = document.getElementById('player-container');
+                playerContainer.innerHTML = `
+                    <iframe
+                        width="100%"
+                        height="100%"
+                        src="${streamUrl}"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen>
+                    </iframe>
+                `;
+            } else {
+                // Use Clappr for other streams
+                player = new Clappr.Player({
+                    source: streamUrl,
+                    parentId: '#player-container',
+                    height: '100%',
+                    width: '100%',
+                    plugins: [TitlePlugin],
+                    title: 'SkyLive by Younes',
+                });
+            }
         }
 
         document.getElementById('close-popup').addEventListener('click', function() {
@@ -618,7 +642,7 @@
         ongoingOrUpcoming.forEach((match, index) => {
             matchSchedule.innerHTML += createMatchCard(match, index);
             updateMatchStatus(index, match.matchTime); // Update immediately
-            setInterval(() => updateMatchStatus(index, match.matchTime),); // Update every second
+            setInterval(() => updateMatchStatus(index, match.matchTime), 1000); // Update every second
         });
 
         ended.forEach((match, index) => {
