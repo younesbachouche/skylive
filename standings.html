@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Football League Standings</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            transition: background-color 0.5s ease-in-out;
+            padding-top: 20px;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            margin-top: 40px;
+            gap: 16px;
+            flex-wrap: wrap;
+            padding: 0 16px;
+        }
+
+        .league-card {
+            background-color: #fff;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            padding: 16px;
+            width: 200px;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin-bottom: 16px;
+        }
+
+        .league-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .league-card img {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 12px;
+            border-radius: 50%;
+            transition: transform 0.3s ease;
+        }
+
+        .league-card:hover img {
+            transform: scale(1.1);
+        }
+
+        .league-card h3 {
+            font-size: 1.2rem;
+            color: #333;
+        }
+
+        .floating-table-container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 40px auto;
+            background-color: #fff;
+            overflow: hidden;
+            position: relative;
+            display: none;
+            padding: 16px;
+            transition: transform 0.3s ease;
+        }
+
+        .back-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: transparent;
+            color: #333;
+            font-size: 24px;
+            border: none;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .back-btn:hover {
+            color: #007bff;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 16px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #2c3e50;
+            color: white;
+            font-size: 1rem;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f7f7f7;
+        }
+
+        tr:hover {
+            background-color: #ecf0f1;
+        }
+
+        td img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+        }
+
+        /* Styling for the table content */
+        td,
+        th {
+            border-top: 1px solid #ddd;
+        }
+
+        td {
+            font-size: 0.9rem;
+        }
+
+        /* Make table look sleek with soft shadow */
+        .table-wrapper {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .tabs {
+            display: flex;
+            justify-content: center;
+            margin-top: 24px;
+            padding: 10px;
+            background-color: #fff;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .tabs button {
+            background-color: #34495e;
+            color: white;
+            padding: 12px 25px;
+            margin: 0 8px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+        }
+
+        .tabs button:hover {
+            background-color: #2c3e50;
+        }
+
+        .tabs button.active {
+            background-color: #007bff;
+        }
+
+        @media screen and (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .league-card {
+                width: 80%;
+            }
+
+            .floating-table-container {
+                width: 95%;
+            }
+
+            table {
+                font-size: 14px;
+            }
+
+            th,
+            td {
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- League Cards -->
+    <div class="container" id="leagueSelection">
+        <div class="league-card" id="pl">
+            <img src="https://img.sofascore.com/api/v1/unique-tournament/17/image" alt="Premier League Logo">
+            <h3>Premier League</h3>
+        </div>
+        <div class="league-card" id="l1">
+            <img src="https://img.sofascore.com/api/v1/unique-tournament/34/image" alt="Ligue 1 Logo">
+            <h3>Ligue 1</h3>
+        </div>
+        <div class="league-card" id="liga">
+            <img src="https://img.sofascore.com/api/v1/unique-tournament/8/image" alt="La Liga Logo">
+            <h3>La Liga</h3>
+        </div>
+        <div class="league-card" id="serie">
+            <img src="https://img.sofascore.com/api/v1/unique-tournament/23/image" alt="Serie A Logo">
+            <h3>Serie A</h3>
+        </div>
+        <div class="league-card" id="bund">
+            <img src="https://img.sofascore.com/api/v1/unique-tournament/35/image" alt="Bundesliga Logo">
+            <h3>Bundesliga</h3>
+        </div>
+        <div class="league-card" id="ucl">
+            <img src="https://img.sofascore.com/api/v1/unique-tournament/7/image" alt="UEFA Champions League Logo">
+            <h3>Champions League</h3>
+        </div>
+        <div class="league-card" id="algerianL1">
+            <img src="https://img.sofascore.com/api/v1/unique-tournament/679/image" alt="Algerian Ligue 1 Logo">
+            <h3>Algerian Ligue 1</h3>
+        </div>
+    </div>
+
+    <!-- Floating container for standings -->
+    <div class="floating-table-container" id="standingsContainer">
+        <button class="back-btn" id="backBtn">&#8592;</button>
+        <div class="table-wrapper">
+            <table id="table"></table>
+        </div>
+    </div>
+
+    <script>
+        var myHeaders = new Headers();
+        myHeaders.append("x-rapidapi-key", "63d6a43b5126945faa84db41168f3282");
+        myHeaders.append("x-rapidapi-host", "v3.football.api-sports.io");
+
+        var requestOptions = {
+            method: "GET",
+            headers: myHeaders,
+            redirect: "follow",
+        };
+
+        const urlFR = "https://v3.football.api-sports.io/standings?league=61&season=2024";
+        const urlUK = "https://v3.football.api-sports.io/standings?league=39&season=2024";
+        const urlIT = "https://v3.football.api-sports.io/standings?league=135&season=2024";
+        const urlES = "https://v3.football.api-sports.io/standings?league=140&season=2024";
+        const urlDE = "https://v3.football.api-sports.io/standings?league=78&season=2024";
+        const urlUCL = "https://v3.football.api-sports.io/standings?league=2&season=2024"; // Champions League URL
+        const urlALG = "https://v3.football.api-sports.io/standings?league=8&season=2024"; // Algerian Ligue 1 URL
+
+        const pl = document.getElementById("pl");
+        const liga = document.getElementById("liga");
+        const serie = document.getElementById("serie");
+        const bund = document.getElementById("bund");
+        const l1 = document.getElementById("l1");
+        const ucl = document.getElementById("ucl");
+        const algerianL1 = document.getElementById("algerianL1");
+
+        const leagueSelection = document.getElementById("leagueSelection");
+        const standingsContainer = document.getElementById("standingsContainer");
+        const backBtn = document.getElementById("backBtn");
+
+        let urlDef = urlFR;
+
+        // Set league country
+        pl.addEventListener("click", () => {
+            urlDef = urlUK;
+            getData();
+            showStandings();
+        });
+        l1.addEventListener("click", () => {
+            urlDef = urlFR;
+            getData();
+            showStandings();
+        });
+        liga.addEventListener("click", () => {
+            urlDef = urlES;
+            getData();
+            showStandings();
+        });
+        serie.addEventListener("click", () => {
+            urlDef = urlIT;
+            getData();
+            showStandings();
+        });
+        bund.addEventListener("click", () => {
+            urlDef = urlDE;
+            getData();
+            showStandings();
+        });
+        ucl.addEventListener("click", () => {
+            urlDef = urlUCL;
+            getData();
+            showStandings();
+        });
+        algerianL1.addEventListener("click", () => {
+            urlDef = urlALG;
+            getData();
+            showStandings();
+        });
+
+        // Show standings
+        function showStandings() {
+            leagueSelection.style.display = "none";
+            standingsContainer.style.display = "block";
+        }
+
+        // Show back to league selection
+        backBtn.addEventListener("click", () => {
+            standingsContainer.style.display = "none";
+            leagueSelection.style.display = "flex";
+        });
+
+        function getData() {
+            fetch(urlDef, requestOptions).then((response) =>
+                response
+                    .json()
+                    .then((data) => {
+                        const list = data["response"];
+                        let standings = list[0].league.standings[0];
+                        let goodArray = standings.map((row) => ({
+                            rank: row.rank,
+                            teamName: row.team.name,
+                            logoid: row.team.logo,
+                            points: row.points,
+                            played: row.all.played,
+                            win: row.all.win,
+                            draw: row.all.draw,
+                            lose: row.all.lose,
+                            goalsFor: row.all.goals.for,
+                            goalsAgainst: row.all.goals.against,
+                            diff: row.goalsDiff,
+                        }));
+
+                        show(goodArray);
+                    })
+            );
+        }
+
+        // Function to display the standings
+        function show(goodArray) {
+            let tab = `<tr>
+                <th>Pos.</th>
+                <th></th>
+                <th>Team</th>
+                <th>Points</th>
+                <th>Played</th>
+                <th>Won</th>
+                <th>Draw</th>
+                <th>Lost</th>
+                <th>Goals</th>
+                <th>Goals Against</th>
+                <th>Goal Difference</th>
+            </tr>`;
+
+            goodArray.forEach((team) => {
+                tab += `
+                <tr>
+                    <td>${team.rank}</td>
+                    <td><img src="${team.logoid}" alt="team logo"></td>
+                    <td>${team.teamName}</td>
+                    <td>${team.points}</td>
+                    <td>${team.played}</td>
+                    <td>${team.win}</td>
+                    <td>${team.draw}</td>
+                    <td>${team.lose}</td>
+                    <td>${team.goalsFor}</td>
+                    <td>${team.goalsAgainst}</td>
+                    <td>${team.diff}</td>
+                </tr>`;
+            });
+
+            document.getElementById("table").innerHTML = tab;
+        }
+    </script>
+
+</body>
+
+</html>
