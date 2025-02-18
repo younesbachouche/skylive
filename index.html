@@ -138,7 +138,7 @@
             color: #aaa;
         }
 
-        .live-button,
+        .live-button, 
         .starts-soon-button {
             display: inline-block;
             margin-top: 10px;
@@ -158,7 +158,7 @@
             background-color: rgb(70, 206, 70);
         }
 
-        .live-button a,
+        .live-button a, 
         .starts-soon-button a {
             color: white;
             text-decoration: none;
@@ -178,8 +178,25 @@
         }
 
         .competition-logo {
-            width: 50px;
-            height: 50px;
+            width: 40px;
+            height: 40px;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        .competition-logo.light {
+            display: block;
+        }
+
+        .competition-logo.dark {
+            display: none;
+        }
+
+        body.dark-mode .competition-logo.light {
+            display: none;
+        }
+
+        body.dark-mode .competition-logo.dark {
+            display: block;
         }
 
         .competition-name {
@@ -207,7 +224,7 @@
         /* Player Container */
         #player-container {
             width: 100%;
-            height: calc(100% - 60px); /* Adjust height to accommodate buttons */
+            height: calc(100% - 60px);
             border-radius: 10px;
             position: relative;
         }
@@ -229,7 +246,7 @@
             align-items: center;
             justify-content: center;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-            z-index: 1002; /* Ensure it's above the player */
+            z-index: 1002;
         }
 
         /* Buttons above the player */
@@ -271,21 +288,17 @@
             .match {
                 justify-content: space-between;
             }
-
             .team img {
                 width: 60px;
                 height: 60px;
             }
-
             .vs {
                 font-size: 22px;
             }
-
             .time {
                 font-size: 16px;
             }
-
-            .live-button,
+            .live-button, 
             .starts-soon-button {
                 font-size: 14px;
                 padding: 8px 18px;
@@ -301,34 +314,27 @@
                 text-align: center;
                 padding: 15px;
             }
-
             .team {
                 width: 25%;
             }
-
             .match-details {
                 width: 35%;
             }
-
-            .live-button,
+            .live-button, 
             .starts-soon-button {
                 width: 100%;
                 margin-top: 10px;
             }
-
             header h1 {
                 font-size: 28px;
             }
-
             .team img {
                 width: 50px;
                 height: 50px;
             }
-
             .vs {
                 font-size: 20px;
             }
-
             .time {
                 font-size: 16px;
             }
@@ -338,11 +344,9 @@
             .container {
                 width: 95%;
             }
-
             header h1 {
                 font-size: 24px;
             }
-
             .match {
                 flex-direction: row;
                 align-items: center;
@@ -350,40 +354,32 @@
                 width: 100%;
                 box-sizing: border-box;
             }
-
             .team {
                 width: 30%;
             }
-
             .match-details {
                 width: 30%;
             }
-
             .team img {
                 width: 50px;
                 height: 50px;
             }
-
             .vs {
                 font-size: 18px;
             }
-
             .time {
                 font-size: 14px;
             }
-
-            .live-button,
+            .live-button, 
             .starts-soon-button {
                 padding: 8px 12px;
                 font-size: 12px;
                 width: 100%;
             }
-
             .floating-popup {
                 width: 95%;
                 height: 60vh;
             }
-
             .close-popup {
                 top: -10px;
                 right: -10px;
@@ -424,26 +420,12 @@
             const isDarkMode = body.classList.contains('dark-mode');
             darkModeToggle.innerHTML = isDarkMode ? '☀️ <span>Light Mode</span>' : '🌙 <span>Dark Mode</span>';
             localStorage.setItem('dark-mode', isDarkMode);
-            updateCompetitionLogos(isDarkMode);
         });
 
         const savedDarkMode = localStorage.getItem('dark-mode');
         if (savedDarkMode === 'true') {
             body.classList.add('dark-mode');
             darkModeToggle.innerHTML = '☀️ <span>Light Mode</span>';
-            updateCompetitionLogos(true);
-        }
-
-        function updateCompetitionLogos(isDarkMode) {
-            const competitionLogos = document.querySelectorAll('.competition-logo');
-            competitionLogos.forEach(logo => {
-                const src = logo.src;
-                if (isDarkMode) {
-                    logo.src = src.replace('.png', '-dark.png'); // Assuming dark mode logos have a '-dark' suffix
-                } else {
-                    logo.src = src.replace('-dark.png', '.png');
-                }
-            });
         }
 
         document.addEventListener('contextmenu', function(e) {
@@ -458,35 +440,38 @@
             }
         });
 
+        // Matches data - easily extendable
         const matches = [
+     
             {
                 team1: { name: "Milan", logo: "https://img.sofascore.com/api/v1/team/2692/image" },
                 team2: { name: "Feyenoord", logo: "https://img.sofascore.com/api/v1/team/2959/image" },
                 competitionLogo: "https://img.sofascore.com/api/v1/unique-tournament/7/image",
+                competitionDarkLogo: "https://images.fotmob.com/image_resources/logo/leaguelogo/dark/42.png", 
                 competitionName: "Champions League",
-                matchTime: '2025-02-18T17:45:00Z', 
+                matchTime: '2025-02-18T17:45:00Z', // UTC time
                 streamUrlEnglish: "https://sexbebe.beauty/live/1/chunks.m3u8",
                 streamUrlArabic: "https://1c3ed9b946c.muchasgraciasaficion.one/live/e061a76aa5dded99_hd.m3u8",
-                streamUrlServer3: "https://1c3ed9b946c.muchasgraciasaficion.one/bein2.php" 
-            },
+                streamUrlServer3: "https://1c3ed9b946c.muchasgraciasaficion.one/bein2.php"
+            }
         ];
 
         function sortMatches(matches) {
             const now = new Date().getTime();
             const ongoingOrUpcoming = [];
             const ended = [];
-
+            
             matches.forEach(match => {
                 const matchStartTime = new Date(match.matchTime).getTime();
                 const matchEndTime = matchStartTime + 2 * 60 * 60 * 1000; // 2 hours after match time
-
+                
                 if (now >= matchEndTime) {
                     ended.push(match);
                 } else {
                     ongoingOrUpcoming.push(match);
                 }
             });
-
+            
             return { ongoingOrUpcoming, ended };
         }
 
@@ -498,7 +483,16 @@
                         <p>${match.team1.name}</p>
                     </div>
                     <div class="match-details">
-                        <img src="${match.competitionLogo}" class="competition-logo" alt="Competition Logo">
+                        <img 
+                            src="${match.competitionLogo}"
+                            class="competition-logo light"
+                            alt="Competition Logo Light"
+                        >
+                        <img 
+                            src="${match.competitionDarkLogo}"
+                            class="competition-logo dark"
+                            alt="Competition Logo Dark"
+                        >
                         <p class="competition-name">${match.competitionName}</p>
                         <p class="time" id="match-time-${index}">Today At: ${convertToLocalTime(match.matchTime)}</p>
                         <p class="countdown" id="countdown-${index}">Match starts in: 00:00:00</p>
@@ -522,10 +516,10 @@
             const matchStartTime = new Date(matchTime).getTime();
             const matchEndTime = matchStartTime + 2 * 60 * 60 * 1000; // 2 hours after match time
             const currentTime = new Date().getTime();
-
+            
             const matchTimeElement = document.getElementById(`match-time-${matchId}`);
             const countdownElement = document.getElementById(`countdown-${matchId}`);
-
+            
             if (currentTime >= matchEndTime) {
                 document.getElementById(`ended-button-${matchId}`).style.display = "inline-block";
                 document.getElementById(`live-button-${matchId}`).style.display = "none";
@@ -569,7 +563,7 @@
         function openStreamPopup(englishUrl, arabicUrl, server3Url) {
             const popup = document.getElementById('floating-popup');
             popup.style.display = 'block';
-
+            
             // Set default stream to English
             currentStreamUrl = englishUrl;
             initializePlayer(currentStreamUrl);
@@ -595,26 +589,41 @@
             if (player) {
                 player.destroy(); // Destroy the existing player if it exists
             }
-
+            
             const playerContainer = document.getElementById('player-container');
             playerContainer.innerHTML = ''; // Clear the player container
-
-            player = new Clappr.Player({
-                source: streamUrl,
-                parentId: "#player-container",
-                autoPlay: true,
-                height: '100%',
-                width: '100%',
-                plugins: [TitlePlugin],
-                title: 'SkyLive by Younes',
-            });
+            
+            // Check if the URL is a YouTube embed
+            if (streamUrl.includes("youtube.com") || streamUrl.includes("youtu.be")) {
+                playerContainer.innerHTML = `
+                    <iframe
+                        width="100%"
+                        height="100%"
+                        src="${streamUrl}"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen>
+                    </iframe>
+                `;
+            } else {
+                // For other websites, use an iframe
+                playerContainer.innerHTML = `
+                    <iframe
+                        width="100%"
+                        height="100%"
+                        src="${streamUrl}"
+                        frameborder="0"
+                        allowfullscreen>
+                    </iframe>
+                `;
+            }
         }
 
         document.getElementById('close-popup').addEventListener('click', function() {
             const popup = document.getElementById('floating-popup');
             popup.style.display = 'none';
             if (player) {
-                player.destroy(); 
+                player.destroy();
             }
         });
 
