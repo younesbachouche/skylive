@@ -442,12 +442,11 @@
 
         // Matches data - easily extendable
         const matches = [
-     
             {
                 team1: { name: "Milan", logo: "https://img.sofascore.com/api/v1/team/2692/image" },
                 team2: { name: "Feyenoord", logo: "https://img.sofascore.com/api/v1/team/2959/image" },
                 competitionLogo: "https://img.sofascore.com/api/v1/unique-tournament/7/image",
-                competitionDarkLogo: "https://images.fotmob.com/image_resources/logo/leaguelogo/dark/42.png", 
+                competitionDarkLogo: "https://images.fotmob.com/image_resources/logo/leaguelogo/dark/42.png",
                 competitionName: "Champions League",
                 matchTime: '2025-02-18T17:45:00Z', // UTC time
                 streamUrlEnglish: "https://sexbebe.beauty/live/1/chunks.m3u8",
@@ -586,35 +585,47 @@
         }
 
         function initializePlayer(streamUrl) {
-            if (player) {
-                player.destroy(); // Destroy the existing player if it exists
-            }
-            
             const playerContainer = document.getElementById('player-container');
             playerContainer.innerHTML = ''; // Clear the player container
-            
-            // Check if the URL is a YouTube embed
-            if (streamUrl.includes("youtube.com") || streamUrl.includes("youtu.be")) {
-                playerContainer.innerHTML = `
-                    <iframe
-                        width="100%"
-                        height="100%"
-                        src="${streamUrl}"
-                        frameborder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen>
-                    </iframe>
-                `;
+
+            if (streamUrl.includes("m3u8")) {
+                // For HLS streams (English and Arabic)
+                if (player) {
+                    player.destroy();
+                }
+                player = new Clappr.Player({
+                    source: streamUrl,
+                    parentId: '#player-container',
+                    width: '100%',
+                    height: '100%',
+                    autoPlay: true,
+                    mute: false,
+                    playback: {
+                        hlsjsConfig: {
+                            debug: false,
+                            manifestLoadingMaxRetry: 10,
+                            manifestLoadingRetryDelay: 1,
+                            startLevel: 0
+                        }
+                    },
+                    plugins: {
+                        title: {
+                            title: 'SkyLive by Younes'
+                        }
+                    }
+                });
             } else {
-                // For other websites, use an iframe
+                // For iframe streams (Server 3)
                 playerContainer.innerHTML = `
                     <iframe
                         width="100%"
                         height="100%"
                         src="${streamUrl}"
                         frameborder="0"
-                        allowfullscreen>
-                    </iframe>
+                        allowfullscreen
+                        scrolling="no"
+                        sandbox="allow-scripts allow-same-origin"
+                    ></iframe>
                 `;
             }
         }
@@ -625,24 +636,6 @@
             if (player) {
                 player.destroy();
             }
-        });
-
-        const TitlePlugin = Clappr.CorePlugin.extend({
-            bindEvents() {
-                this.listenTo(this.core.mediaControl, Clappr.Events.MEDIACONTROL_CONTAINERCHANGED, this.addTitle);
-            },
-            addTitle() {
-                const title = this.options.title || 'SkyLive by Younes';
-                const titleElement = document.createElement('div');
-                titleElement.style.position = 'absolute';
-                titleElement.style.bottom = '10px';
-                titleElement.style.left = '10px';
-                titleElement.style.color = '#fff';
-                titleElement.style.fontSize = '14px';
-                titleElement.style.zIndex = '1000';
-                titleElement.textContent = title;
-                this.core.mediaControl.$el.append(titleElement);
-            },
         });
 
         const { ongoingOrUpcoming, ended } = sortMatches(matches);
