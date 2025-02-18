@@ -424,12 +424,26 @@
             const isDarkMode = body.classList.contains('dark-mode');
             darkModeToggle.innerHTML = isDarkMode ? '☀️ <span>Light Mode</span>' : '🌙 <span>Dark Mode</span>';
             localStorage.setItem('dark-mode', isDarkMode);
+            updateCompetitionLogos(isDarkMode);
         });
 
         const savedDarkMode = localStorage.getItem('dark-mode');
         if (savedDarkMode === 'true') {
             body.classList.add('dark-mode');
             darkModeToggle.innerHTML = '☀️ <span>Light Mode</span>';
+            updateCompetitionLogos(true);
+        }
+
+        function updateCompetitionLogos(isDarkMode) {
+            const competitionLogos = document.querySelectorAll('.competition-logo');
+            competitionLogos.forEach(logo => {
+                const src = logo.src;
+                if (isDarkMode) {
+                    logo.src = src.replace('.png', '-dark.png'); // Assuming dark mode logos have a '-dark' suffix
+                } else {
+                    logo.src = src.replace('-dark.png', '.png');
+                }
+            });
         }
 
         document.addEventListener('contextmenu', function(e) {
@@ -446,153 +460,14 @@
 
         const matches = [
             {
-                team1: { name: "Leicester", logo: "https://img.sofascore.com/api/v1/team/31/image" },
-                team2: { name: "Arsenal", logo: "https://img.sofascore.com/api/v1/team/42/image" },
-                competitionLogo: "https://img.sofascore.com/api/v1/unique-tournament/17/image",
-                competitionName: "Premier League",
-                matchTime: '2025-02-15T12:30:00Z', 
-                streamUrlEnglish: "https://keroopalmenw.website/live/4/chunks.m3u8",
-                streamUrlArabic: "https://1c3ed9b946c.muchasgraciasaficion.one/live/a1DlzUy1q4dDZQMw_hd.m3u8",
-                streamUrlServer3: "https://1c3ed9b946c.muchasgraciasaficion.one/bein1.php" 
-            },
-
-
-             {
-                team1: { name: "Bochum", logo: "https://img.sofascore.com/api/v1/team/2542/image" },
-                team2: { name: "Dortmund", logo: "https://img.sofascore.com/api/v1/team/2673/image" },
-                competitionLogo: "https://img.sofascore.com/api/v1/unique-tournament/35/image",
-                competitionName: "Bundesliga",
-                matchTime: '2025-02-15T14:30:00Z', 
-                streamUrlEnglish: "https://yhjkrf.site/chunklist/hlsch30.m3u8?wmsAuthSign=",
-                streamUrlArabic: "https://1c3ed9b946c.muchasgraciasaficion.one/live/ep1a7da5ed99_hd.m3u8",
-                streamUrlServer3: "https://1c3ed9b946c.muchasgraciasaficion.one/bein5.php" 
-            },
-
-
-
-             {
-                team1: { name: "Man City", logo: "https://img.sofascore.com/api/v1/team/17/image" },
-                team2: { name: "Newcastle", logo: "https://img.sofascore.com/api/v1/team/39/image" },
-                competitionLogo: "https://img.sofascore.com/api/v1/unique-tournament/17/image",
-                competitionName: "Premier League",
-                matchTime: '2025-02-15T15:00:00Z', 
-                streamUrlEnglish: "https://sortsport.click/live/4/chunks.m3u8",
-                streamUrlArabic: "https://1c3ed9b946c.muchasgraciasaficion.one/live/a1DlzUy1q4dDZQMw_hd.m3u8",
-                streamUrlServer3: "https://1c3ed9b946c.muchasgraciasaficion.one/bein1.php" 
-            },
-
-
-             {
-                team1: { name: "Aston Villa", logo: "https://img.sofascore.com/api/v1/team/40/image" },
-                team2: { name: "Ipswich", logo: "https://img.sofascore.com/api/v1/team/32/image" },
-                competitionLogo: "https://img.sofascore.com/api/v1/unique-tournament/17/image",
-                competitionName: "Premier League",
-                matchTime: '2025-02-15T15:00:00Z', 
-                streamUrlEnglish: "https://ateroinakmer2.shop/live/5/chunks.m3u8",
-                streamUrlArabic: "https://ateroinakmer2.shop/live/5/chunks.m3u8",
-                streamUrlServer3: "https://example.com" 
-            },
-
-
-
-               {
-                team1: { name: "West Ham", logo: "https://img.sofascore.com/api/v1/team/37/image" },
-                team2: { name: "Brentford", logo: "https://img.sofascore.com/api/v1/team/50/image" },
-                competitionLogo: "https://img.sofascore.com/api/v1/unique-tournament/17/image",
-                competitionName: "Premier League",
-                matchTime: '2025-02-15T15:00:00Z', 
-                streamUrlEnglish: "https://ateroinakmer2.shop/live/7/chunks.m3u8",
-                streamUrlArabic: "https://ateroinakmer2.shop/live/7/chunks.m3u8",
-                streamUrlServer3: "https://example.com" 
-            },
-
-
-
-             {
-                team1: { name: "Osasuna", logo: "https://img.sofascore.com/api/v1/team/2820/image" },
-                team2: { name: "Real Madrid", logo: "https://img.sofascore.com/api/v1/team/2829/image" },
-                competitionLogo: "https://img.sofascore.com/api/v1/unique-tournament/8/image",
-                competitionName: "La Liga",
-                matchTime: '2025-02-15T15:15:00Z', 
-                streamUrlEnglish: "https://foolnefobayte2.store/live/1/chunks.m3u8",
-                streamUrlArabic: "https://1c3ed9b946c.muchasgraciasaficion.one/live/dQbEF0dazcwYw_hd.m3u8",
-                streamUrlServer3: "https://1c3ed9b946c.muchasgraciasaficion.one/bein3.php" 
-            },
-
-
-              {
-                team1: { name: "Lazio", logo: "https://img.sofascore.com/api/v1/team/2699/image" },
-                team2: { name: "Napoli", logo: "https://img.sofascore.com/api/v1/team/2714/image" },
-                competitionLogo: "https://img.sofascore.com/api/v1/unique-tournament/23/image",
-                competitionName: "Serie A",
-                matchTime: '2025-02-15T17:00:00Z', 
-                streamUrlEnglish: "https://nberokkbasz2.store/live/1/chunks.m3u8",
-                streamUrlArabic: "https://1c3ed9b946c.muchasgraciasaficion.one/live/a1f0545bf22c1.m3u8",
-                streamUrlServer3: "https://example.com" 
-            },
-
-
-
-             {
-                team1: { name: "Leverkusen", logo: "https://img.sofascore.com/api/v1/team/2681/image" },
-                team2: { name: "Bayern", logo: "https://img.sofascore.com/api/v1/team/2672/image" },
-                competitionLogo: "https://img.sofascore.com/api/v1/unique-tournament/35/image",
-                competitionName: "Bundesliga",
-                matchTime: '2025-02-15T17:30:00Z', 
-                streamUrlEnglish: "https://nberokkbasz2.store/live/1/chunks.m3u8",
-                streamUrlArabic: "https://1c3ed9b946c.muchasgraciasaficion.one/live/a1f0545bf22c1.m3u8",
-                streamUrlServer3: "https://example.com" 
-            },
-
-
-            {
-                team1: { name: "AT Madrid", logo: "https://img.sofascore.com/api/v1/team/2836/image" },
-                team2: { name: "Celta Vigo", logo: "https://img.sofascore.com/api/v1/team/2821/image" },
-                competitionLogo: "https://img.sofascore.com/api/v1/unique-tournament/8/image",
-                competitionName: "La Liga",
-                matchTime: '2025-02-15T17:30:00Z', 
-                streamUrlEnglish: "https://nberokkbasz2.store/live/1/chunks.m3u8",
-                streamUrlArabic: "https://1c3ed9b946c.muchasgraciasaficion.one/live/a1f0545bf22c1.m3u8",
-                streamUrlServer3: "https://example.com" 
-            },
-
-
-
-            
-              {
                 team1: { name: "Milan", logo: "https://img.sofascore.com/api/v1/team/2692/image" },
-                team2: { name: "Verona", logo: "https://img.sofascore.com/api/v1/team/2701/image" },
-                competitionLogo: "https://img.sofascore.com/api/v1/unique-tournament/23/image",
-                competitionName: "Serie A",
-                matchTime: '2025-02-15T19:45:00Z', 
-                streamUrlEnglish: "https://nberokkbasz2.store/live/1/chunks.m3u8",
-                streamUrlArabic: "https://1c3ed9b946c.muchasgraciasaficion.one/live/a1f0545bf22c1.m3u8",
-                streamUrlServer3: "https://example.com" 
-            },
-
-
-
-            {
-                team1: { name: "Villarreal", logo: "https://img.sofascore.com/api/v1/team/2819/image" },
-                team2: { name: "Valencia", logo: "https://img.sofascore.com/api/v1/team/2828/image" },
-                competitionLogo: "https://img.sofascore.com/api/v1/unique-tournament/8/image",
-                competitionName: "La Liga",
-                matchTime: '2025-02-15T20:00:00Z', 
-                streamUrlEnglish: "https://nberokkbasz2.store/live/1/chunks.m3u8",
-                streamUrlArabic: "https://1c3ed9b946c.muchasgraciasaficion.one/live/a1f0545bf22c1.m3u8",
-                streamUrlServer3: "https://example.com" 
-            },
-
-
-              {
-                team1: { name: "Toulouse", logo: "https://img.sofascore.com/api/v1/team/1681/image" },
-                team2: { name: "PSG", logo: "https://img.sofascore.com/api/v1/team/1644/image" },
-                competitionLogo: "https://img.sofascore.com/api/v1/unique-tournament/34/image",
-                competitionName: "La Liga",
-                matchTime: '2025-02-15T20:05:00Z', 
-                streamUrlEnglish: "https://nberokkbasz2.store/live/1/chunks.m3u8",
-                streamUrlArabic: "https://1c3ed9b946c.muchasgraciasaficion.one/live/a1f0545bf22c1.m3u8",
-                streamUrlServer3: "https://example.com" 
+                team2: { name: "Feyenoord", logo: "https://img.sofascore.com/api/v1/team/2959/image" },
+                competitionLogo: "https://img.sofascore.com/api/v1/unique-tournament/7/image",
+                competitionName: "Champions League",
+                matchTime: '2025-02-18T17:45:00Z', 
+                streamUrlEnglish: "https://sexbebe.beauty/live/1/chunks.m3u8",
+                streamUrlArabic: "https://1c3ed9b946c.muchasgraciasaficion.one/live/e061a76aa5dded99_hd.m3u8",
+                streamUrlServer3: "https://1c3ed9b946c.muchasgraciasaficion.one/bein2.php" 
             },
         ];
 
@@ -724,30 +599,15 @@
             const playerContainer = document.getElementById('player-container');
             playerContainer.innerHTML = ''; // Clear the player container
 
-            // Check if the URL is a YouTube embed
-            if (streamUrl.includes("youtube.com") || streamUrl.includes("youtu.be")) {
-                playerContainer.innerHTML = `
-                    <iframe
-                        width="100%"
-                        height="100%"
-                        src="${streamUrl}"
-                        frameborder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen>
-                    </iframe>
-                `;
-            } else {
-                // For other websites, use an iframe
-                playerContainer.innerHTML = `
-                    <iframe
-                        width="100%"
-                        height="100%"
-                        src="${streamUrl}"
-                        frameborder="0"
-                        allowfullscreen>
-                    </iframe>
-                `;
-            }
+            player = new Clappr.Player({
+                source: streamUrl,
+                parentId: "#player-container",
+                autoPlay: true,
+                height: '100%',
+                width: '100%',
+                plugins: [TitlePlugin],
+                title: 'SkyLive by Younes',
+            });
         }
 
         document.getElementById('close-popup').addEventListener('click', function() {
