@@ -15,7 +15,6 @@
             box-sizing: border-box;
         }
 
-        /* Light mode (default) */
         body {
             font-family: Arial, sans-serif;
             background-color: #f0f0f0;
@@ -24,7 +23,6 @@
             transition: background-color 0.3s, color 0.3s;
         }
 
-        /* Dark mode */
         body.dark-mode {
             background-color: #121212;
             color: #ffffff;
@@ -206,7 +204,6 @@
             margin-top: 5px;
         }
 
-        /* Floating Popup */
         .floating-popup {
             position: fixed;
             top: 50%;
@@ -222,7 +219,6 @@
             display: none;
         }
 
-        /* Player Container */
         #player-container {
             width: 100%;
             height: calc(100% - 60px);
@@ -230,7 +226,6 @@
             position: relative;
         }
 
-        /* Close button positioned above the player */
         .close-popup {
             position: absolute;
             top: -15px;
@@ -250,7 +245,6 @@
             z-index: 1002;
         }
 
-        /* Buttons above the player */
         .stream-buttons {
             display: flex;
             justify-content: center;
@@ -479,6 +473,8 @@
                 streamUrlServer3: "https://1c3ed9b946c.muchasgraciasaficion.one/bein2.php"
             },
 
+            
+
 
 
              {
@@ -515,7 +511,7 @@
             
             matches.forEach(match => {
                 const matchStartTime = new Date(match.matchTime).getTime();
-                const matchEndTime = matchStartTime + 2 * 60 * 60 * 1000; // 2 hours after match time
+                const matchEndTime = matchStartTime + 2 * 60 * 60 * 1000; 
                 
                 if (now >= matchEndTime) {
                     ended.push(match);
@@ -566,7 +562,7 @@
 
         function updateMatchStatus(matchId, matchTime) {
             const matchStartTime = new Date(matchTime).getTime();
-            const matchEndTime = matchStartTime + 2 * 60 * 60 * 1000; // 2 hours after match time
+            const matchEndTime = matchStartTime + 2 * 60 * 60 * 1000; 
             const currentTime = new Date().getTime();
             
             const matchTimeElement = document.getElementById(`match-time-${matchId}`);
@@ -616,11 +612,9 @@
             const popup = document.getElementById('floating-popup');
             popup.style.display = 'block';
             
-            // Set default stream to English
             currentStreamUrl = englishUrl;
             initializePlayer(currentStreamUrl);
 
-            // Add event listeners to buttons
             document.getElementById('english-button').addEventListener('click', () => {
                 currentStreamUrl = englishUrl;
                 initializePlayer(currentStreamUrl);
@@ -639,10 +633,9 @@
 
         function initializePlayer(streamUrl) {
             const playerContainer = document.getElementById('player-container');
-            playerContainer.innerHTML = ''; // Clear the player container
+            playerContainer.innerHTML = ''; 
 
             if (streamUrl.includes("m3u8")) {
-                // For HLS streams (English and Arabic)
                 if (player) {
                     player.destroy();
                 }
@@ -668,7 +661,6 @@
                     }
                 });
             } else {
-                // For iframe streams (Server 3)
                 playerContainer.innerHTML = `
                     <iframe
                         width="100%"
@@ -696,8 +688,8 @@
 
         ongoingOrUpcoming.forEach((match, index) => {
             matchSchedule.innerHTML += createMatchCard(match, index);
-            updateMatchStatus(index, match.matchTime); // Update immediately
-            setInterval(() => updateMatchStatus(index, match.matchTime), 1000); // Update every second
+            updateMatchStatus(index, match.matchTime); 
+            setInterval(() => updateMatchStatus(index, match.matchTime), 1000); 
         });
 
         ended.forEach((match, index) => {
