@@ -7,7 +7,6 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
     <title>Sky Live by Younes</title>
-    <script src="https://cdn.jsdelivr.net/npm/clappr@latest/dist/clappr.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -439,13 +438,13 @@
         // Match Data
         const matches = [
             {
-                team1: { name: "Brighton", logo: "https://img.sofascore.com/api/v1/team/30/image" },
-                team2: { name: "Bourenmouth", logo: "https://img.sofascore.com/api/v1/team/60/image" },
-                competitionLogo: "https://images.fotmob.com/image_resources/logo/leaguelogo/47.png",
-                competitionDarkLogo: "https://images.fotmob.com/image_resources/logo/leaguelogo/dark/47.png",
-                competitionName: "Premier League",
-                matchTime: '2025-03-05T16:10:00Z', // UTC time
-                streamUrlEnglish: "https://media2.streambrothers.com:1936/8122/8122/chunklist_w1077758984.m3u8",
+                team1: { name: "Feyenoord", logo: "https://img.sofascore.com/api/v1/team/2959/image" },
+                team2: { name: "Inter", logo: "https://img.sofascore.com/api/v1/team/2697/image" },
+                competitionLogo: "https://images.fotmob.com/image_resources/logo/leaguelogo/42.png",
+                competitionDarkLogo: "https://images.fotmob.com/image_resources/logo/leaguelogo/dark/42.png",
+                competitionName: "Champions League",
+                matchTime: '2025-03-05T17:45:00Z', // UTC time
+                streamUrlEnglish: "https://chesaaaberoolan2.site/live/1/chunks.m3u8",
                 streamUrlArabic: "https://mbc1-enc.edgenextcdn.net/out/v1/b0b3a0e6750d4408bb86d703d5feffd1/index_23.m3u8",
                 streamUrlServer3: "https://1xqndiit0zztnjqq.muchasgraciasaficion.one/bein1.php"
             },
@@ -549,10 +548,7 @@
             return localTime;
         }
 
-        // Initialize Clappr Player
-        let player;
-        let currentStreamUrl;
-
+        // Initialize Player
         function openStreamPopup(englishUrl, arabicUrl, server3Url) {
             const popup = document.getElementById('floating-popup');
             popup.style.display = 'block';
@@ -581,100 +577,20 @@
             playerContainer.innerHTML = '';
 
             if (streamUrl.includes("m3u8")) {
-                if (player) {
-                    player.destroy();
-                }
-                player = new Clappr.Player({
-                    source: streamUrl,
-                    parentId: '#player-container',
-                    width: '100%',
-                    height: '100%',
-                    autoPlay: true,
-                    mute: false,
-                    playback: {
-                        hlsjsConfig: {
-                            debug: true,
-                            manifestLoadingMaxRetry: 10,
-                            manifestLoadingRetryDelay: 1,
-                            startLevel: 0,
-                            enableWorker: true,
-                            liveSyncDurationCount: 3,
-                            liveMaxLatencyDurationCount: 10,
-                            liveDurationInfinity: true,
-                            capLevelToPlayerSize: true,
-                            maxBufferLength: 30,
-                            maxMaxBufferLength: 60,
-                            maxBufferSize: 60 * 1000 * 1000,
-                            maxBufferHole: 0.5,
-                            highBufferWatchdogPeriod: 2,
-                            nudgeOffset: 0.1,
-                            nudgeMaxRetry: 3,
-                            abrEwmaDefaultEstimate: 500000,
-                            abrEwmaFastLive: 3,
-                            abrEwmaSlowLive: 9,
-                            abrEwmaFastVoD: 3,
-                            abrEwmaSlowVoD: 9,
-                            abrBandWidthFactor: 0.95,
-                            abrBandWidthUpFactor: 0.7,
-                            maxStarvationDelay: 4,
-                            maxLoadingDelay: 4,
-                            minAutoBitrate: 0,
-                        },
-                        useHlsJS: false, // Fallback to native HLS if available
-                    },
-                    plugins: {
-                        title: {
-                            title: 'SkyLive by Younes'
-                        }
-                    }
-                });
-
-                player.on('error', function(error) {
-                    console.error('Player error:', error);
-                });
-
-                player.on('play', function() {
-                    console.log('Player is playing');
-                });
-
-                player.on('pause', function() {
-                    console.log('Player is paused');
-                });
-
-                player.on('buffering', function() {
-                    console.log('Player is buffering');
-                });
-
-                player.on('bufferingComplete', function() {
-                    console.log('Player buffering complete');
-                });
-
-                player.on('ready', function() {
-                    console.log('Player is ready');
-                });
-
-                player.on('resize', function() {
-                    console.log('Player resized');
-                });
-
-                player.on('fullscreen', function() {
-                    console.log('Player fullscreen');
-                });
-
-                player.on('stop', function() {
-                    console.log('Player stopped');
-                });
-
-                player.on('destroy', function() {
-                    console.log('Player destroyed');
-                });
-
+                // Use the device's native player for .m3u8 streams
+                playerContainer.innerHTML = `
+                    <video controls autoplay width="100%" height="100%">
+                        <source src="${streamUrl}" type="application/x-mpegURL">
+                        Your browser does not support the video tag.
+                    </video>
+                `;
             } else {
+                // Use an iframe for Server 3 or other websites
                 playerContainer.innerHTML = `
                     <iframe
+                        src="${streamUrl}"
                         width="100%"
                         height="100%"
-                        src="${streamUrl}"
                         frameborder="0"
                         allowfullscreen
                         scrolling="no"
@@ -688,9 +604,8 @@
         document.getElementById('close-popup').addEventListener('click', function() {
             const popup = document.getElementById('floating-popup');
             popup.style.display = 'none';
-            if (player) {
-                player.destroy();
-            }
+            const playerContainer = document.getElementById('player-container');
+            playerContainer.innerHTML = ''; // Clear the player
         });
 
         // Render Matches
