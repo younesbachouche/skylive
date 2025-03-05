@@ -27,7 +27,6 @@
             background-color: #121212;
             color: #ffffff;
         }
-        
 
         .container {
             width: 90%;
@@ -137,7 +136,7 @@
             color: #aaa;
         }
 
-        .live-button, 
+        .live-button,
         .starts-soon-button {
             display: inline-block;
             margin-top: 10px;
@@ -157,7 +156,7 @@
             background-color: rgb(70, 206, 70);
         }
 
-        .live-button a, 
+        .live-button a,
         .starts-soon-button a {
             color: white;
             text-decoration: none;
@@ -293,7 +292,7 @@
             .time {
                 font-size: 16px;
             }
-            .live-button, 
+            .live-button,
             .starts-soon-button {
                 font-size: 14px;
                 padding: 8px 18px;
@@ -315,7 +314,7 @@
             .match-details {
                 width: 35%;
             }
-            .live-button, 
+            .live-button,
             .starts-soon-button {
                 width: 100%;
                 margin-top: 10px;
@@ -365,7 +364,7 @@
             .time {
                 font-size: 14px;
             }
-            .live-button, 
+            .live-button,
             .starts-soon-button {
                 padding: 8px 12px;
                 font-size: 12px;
@@ -407,6 +406,7 @@
     </div>
 
     <script>
+        // Dark Mode Toggle
         const darkModeToggle = document.getElementById('dark-mode-toggle');
         const body = document.body;
 
@@ -423,20 +423,21 @@
             darkModeToggle.innerHTML = '☀️ <span>Light Mode</span>';
         }
 
+        // Prevent Right-Click and Keyboard Shortcuts
         document.addEventListener('contextmenu', function(e) {
             e.preventDefault();
         });
 
         document.addEventListener('keydown', function(e) {
-            if ((e.ctrlKey && e.key === 'u') || 
-                (e.ctrlKey && e.shiftKey && e.key === 'I') || 
+            if ((e.ctrlKey && e.key === 'u') ||
+                (e.ctrlKey && e.shiftKey && e.key === 'I') ||
                 (e.ctrlKey && e.key === 's')) {
                 e.preventDefault();
             }
         });
 
+        // Match Data
         const matches = [
-           
             {
                 team1: { name: "Brighton", logo: "https://img.sofascore.com/api/v1/team/30/image" },
                 team2: { name: "Bourenmouth", logo: "https://img.sofascore.com/api/v1/team/60/image" },
@@ -444,104 +445,34 @@
                 competitionDarkLogo: "https://images.fotmob.com/image_resources/logo/leaguelogo/dark/47.png",
                 competitionName: "Premier League",
                 matchTime: '2025-03-05T16:10:00Z', // UTC time
-                streamUrlEnglish: "https://nemritehkaaard.store/live/3/chunks.m3u8",
-                streamUrlArabic: "http://m.live.net.sa:1935/live/sunnah/playlist.m3u8",
+                streamUrlEnglish: "https://media2.streambrothers.com:1936/8122/8122/chunklist_w1077758984.m3u8",
+                streamUrlArabic: "https://mbc1-enc.edgenextcdn.net/out/v1/b0b3a0e6750d4408bb86d703d5feffd1/index_23.m3u8",
                 streamUrlServer3: "https://1xqndiit0zztnjqq.muchasgraciasaficion.one/bein1.php"
             },
-
-            
-
-
-             {
-                team1: { name: "Crystal Palace", logo: "https://img.sofascore.com/api/v1/team/7/image" },
-                team2: { name: "Aston Villa", logo: "https://img.sofascore.com/api/v1/team/40/image" },
-                competitionLogo: "https://images.fotmob.com/image_resources/logo/leaguelogo/47.png",
-                competitionDarkLogo: "https://images.fotmob.com/image_resources/logo/leaguelogo/dark/47.png",
-                competitionName: "Premier League",
-                matchTime: '2025-02-25T19:30:00Z', // UTC time
-                streamUrlEnglish: "https://chesaaaberoolan2.site/live/4/chunks.m3u8",
-                streamUrlArabic: "https://chesaaaberoolan2.site/live/4/chunks.m3u8",
-                streamUrlServer3: "https://1xqndiit0zztnjqq.muchasgraciasaficion.one/bein1.php"
-            },
-
-
-            
-            {
-                team1: { name: "Wolves", logo: "https://img.sofascore.com/api/v1/team/3/image" },
-                team2: { name: "Fulham", logo: "https://img.sofascore.com/api/v1/team/43/image" },
-                competitionLogo: "https://images.fotmob.com/image_resources/logo/leaguelogo/47.png",
-                competitionDarkLogo: "https://images.fotmob.com/image_resources/logo/leaguelogo/dark/47.png",
-                competitionName: "Premier League",
-                matchTime: '2025-02-25T19:30:00Z', // UTC time
-                streamUrlEnglish: "https://chesaaaberoolan2.site/live/5/chunks.m3u8",
-                streamUrlArabic: "https://chesaaaberoolan2.site/live/5/chunks.m3u8",
-                streamUrlServer3: "https://1xqndiit0zztnjqq.muchasgraciasaficion.one/bein1.php"
-            },
-
-
-
-             {
-                team1: { name: "Inter", logo: "https://img.sofascore.com/api/v1/team/2697/image" },
-                team2: { name: "Lazio", logo: "https://img.sofascore.com/api/v1/team/2699/image" },
-                competitionLogo: "https://images.fotmob.com/image_resources/logo/leaguelogo/dark/141.png",
-                competitionDarkLogo: "https://images.fotmob.com/image_resources/logo/leaguelogo/dark/141.png",
-                competitionName: "Coppa Italia",
-                matchTime: '2025-02-25T20:00:00Z', // UTC time
-                streamUrlEnglish: "https://azcerpplam.online/live/6/chunks.m3u8",
-                streamUrlArabic: "https://1xqndiit0zztnjqq.muchasgraciasaficion.one/live/c1d00se775sss3.m3u8",
-                streamUrlServer3: "https://1xqndiit0zztnjqq.muchasgraciasaficion.one/ad.php"
-            },
-
-
-             {
-                team1: { name: "Chelsea", logo: "https://img.sofascore.com/api/v1/team/38/image" },
-                team2: { name: "Southampton", logo: "https://img.sofascore.com/api/v1/team/45/image" },
-                competitionLogo: "https://images.fotmob.com/image_resources/logo/leaguelogo/47.png",
-                competitionDarkLogo: "https://images.fotmob.com/image_resources/logo/leaguelogo/dark/47.png",
-                competitionName: "Premier League",
-                matchTime: '2025-02-25T20:15:00Z', // UTC time
-                streamUrlEnglish: "https://beryaaadfevqw.website/live/2/chunks.m3u8",
-                streamUrlArabic: "https://1xqndiit0zztnjqq.muchasgraciasaficion.one/live/c1d00sdds3.m3u8",
-                streamUrlServer3: "https://1xqndiit0zztnjqq.muchasgraciasaficion.one/bein2.php"
-            },
-
-
-           
-
-              {
-                team1: { name: "Barcelona", logo: "https://img.sofascore.com/api/v1/team/2817/image" },
-                team2: { name: "AT Madrid", logo: "https://img.sofascore.com/api/v1/team/2836/image" },
-                competitionLogo: "https://images.fotmob.com/image_resources/logo/leaguelogo/dark/138.png",
-                competitionDarkLogo: "https://images.fotmob.com/image_resources/logo/leaguelogo/dark/138.png",
-                competitionName: "Copa del Rey",
-                matchTime: '2025-02-25T20:30:00Z', // UTC time
-                streamUrlEnglish: "https://storage.googleapis.com/poiuyetddvcn/mux_video_ts/index-1.m3u8",
-                streamUrlArabic: "https://15f70531bf58c4350.s3.eu-central-1.amazonaws.com/350/live_720p30.m3u8",
-                streamUrlServer3: "https://1xqndiit0zztnjqq.muchasgraciasaficion.one/bein4.php"
-            },          
-
-          
+            // Add more matches here...
         ];
 
+        // Sort Matches
         function sortMatches(matches) {
             const now = new Date().getTime();
             const ongoingOrUpcoming = [];
             const ended = [];
-            
+
             matches.forEach(match => {
                 const matchStartTime = new Date(match.matchTime).getTime();
-                const matchEndTime = matchStartTime + 2 * 60 * 60 * 1000; 
-                
+                const matchEndTime = matchStartTime + 2 * 60 * 60 * 1000;
+
                 if (now >= matchEndTime) {
                     ended.push(match);
                 } else {
                     ongoingOrUpcoming.push(match);
                 }
             });
-            
+
             return { ongoingOrUpcoming, ended };
         }
 
+        // Create Match Card
         function createMatchCard(match, index) {
             return `
                 <div class="match">
@@ -550,16 +481,8 @@
                         <p>${match.team1.name}</p>
                     </div>
                     <div class="match-details">
-                        <img 
-                            src="${match.competitionLogo}"
-                            class="competition-logo light"
-                            alt="Competition Logo Light"
-                        >
-                        <img 
-                            src="${match.competitionDarkLogo}"
-                            class="competition-logo dark"
-                            alt="Competition Logo Dark"
-                        >
+                        <img src="${match.competitionLogo}" class="competition-logo light" alt="Competition Logo Light">
+                        <img src="${match.competitionDarkLogo}" class="competition-logo dark" alt="Competition Logo Dark">
                         <p class="competition-name">${match.competitionName}</p>
                         <p class="time" id="match-time-${index}">Today At: ${convertToLocalTime(match.matchTime)}</p>
                         <p class="countdown" id="countdown-${index}">Match starts in: 00:00:00</p>
@@ -579,14 +502,15 @@
             `;
         }
 
+        // Update Match Status
         function updateMatchStatus(matchId, matchTime) {
             const matchStartTime = new Date(matchTime).getTime();
-            const matchEndTime = matchStartTime + 2 * 60 * 60 * 1000; 
+            const matchEndTime = matchStartTime + 2 * 60 * 60 * 1000;
             const currentTime = new Date().getTime();
-            
+
             const matchTimeElement = document.getElementById(`match-time-${matchId}`);
             const countdownElement = document.getElementById(`countdown-${matchId}`);
-            
+
             if (currentTime >= matchEndTime) {
                 document.getElementById(`ended-button-${matchId}`).style.display = "inline-block";
                 document.getElementById(`live-button-${matchId}`).style.display = "none";
@@ -611,6 +535,7 @@
             }
         }
 
+        // Convert UTC to Local Time
         function convertToLocalTime(utcTime) {
             const matchDate = new Date(utcTime);
             const options = {
@@ -624,13 +549,14 @@
             return localTime;
         }
 
+        // Initialize Clappr Player
         let player;
         let currentStreamUrl;
 
         function openStreamPopup(englishUrl, arabicUrl, server3Url) {
             const popup = document.getElementById('floating-popup');
             popup.style.display = 'block';
-            
+
             currentStreamUrl = englishUrl;
             initializePlayer(currentStreamUrl);
 
@@ -652,7 +578,7 @@
 
         function initializePlayer(streamUrl) {
             const playerContainer = document.getElementById('player-container');
-            playerContainer.innerHTML = ''; 
+            playerContainer.innerHTML = '';
 
             if (streamUrl.includes("m3u8")) {
                 if (player) {
@@ -667,11 +593,34 @@
                     mute: false,
                     playback: {
                         hlsjsConfig: {
-                            debug: false,
+                            debug: true,
                             manifestLoadingMaxRetry: 10,
                             manifestLoadingRetryDelay: 1,
-                            startLevel: 0
-                        }
+                            startLevel: 0,
+                            enableWorker: true,
+                            liveSyncDurationCount: 3,
+                            liveMaxLatencyDurationCount: 10,
+                            liveDurationInfinity: true,
+                            capLevelToPlayerSize: true,
+                            maxBufferLength: 30,
+                            maxMaxBufferLength: 60,
+                            maxBufferSize: 60 * 1000 * 1000,
+                            maxBufferHole: 0.5,
+                            highBufferWatchdogPeriod: 2,
+                            nudgeOffset: 0.1,
+                            nudgeMaxRetry: 3,
+                            abrEwmaDefaultEstimate: 500000,
+                            abrEwmaFastLive: 3,
+                            abrEwmaSlowLive: 9,
+                            abrEwmaFastVoD: 3,
+                            abrEwmaSlowVoD: 9,
+                            abrBandWidthFactor: 0.95,
+                            abrBandWidthUpFactor: 0.7,
+                            maxStarvationDelay: 4,
+                            maxLoadingDelay: 4,
+                            minAutoBitrate: 0,
+                        },
+                        useHlsJS: false, // Fallback to native HLS if available
                     },
                     plugins: {
                         title: {
@@ -679,6 +628,47 @@
                         }
                     }
                 });
+
+                player.on('error', function(error) {
+                    console.error('Player error:', error);
+                });
+
+                player.on('play', function() {
+                    console.log('Player is playing');
+                });
+
+                player.on('pause', function() {
+                    console.log('Player is paused');
+                });
+
+                player.on('buffering', function() {
+                    console.log('Player is buffering');
+                });
+
+                player.on('bufferingComplete', function() {
+                    console.log('Player buffering complete');
+                });
+
+                player.on('ready', function() {
+                    console.log('Player is ready');
+                });
+
+                player.on('resize', function() {
+                    console.log('Player resized');
+                });
+
+                player.on('fullscreen', function() {
+                    console.log('Player fullscreen');
+                });
+
+                player.on('stop', function() {
+                    console.log('Player stopped');
+                });
+
+                player.on('destroy', function() {
+                    console.log('Player destroyed');
+                });
+
             } else {
                 playerContainer.innerHTML = `
                     <iframe
@@ -694,6 +684,7 @@
             }
         }
 
+        // Close Popup
         document.getElementById('close-popup').addEventListener('click', function() {
             const popup = document.getElementById('floating-popup');
             popup.style.display = 'none';
@@ -702,13 +693,14 @@
             }
         });
 
+        // Render Matches
         const { ongoingOrUpcoming, ended } = sortMatches(matches);
         const matchSchedule = document.getElementById('match-schedule');
 
         ongoingOrUpcoming.forEach((match, index) => {
             matchSchedule.innerHTML += createMatchCard(match, index);
-            updateMatchStatus(index, match.matchTime); 
-            setInterval(() => updateMatchStatus(index, match.matchTime), 1000); 
+            updateMatchStatus(index, match.matchTime);
+            setInterval(() => updateMatchStatus(index, match.matchTime), 1000);
         });
 
         ended.forEach((match, index) => {
