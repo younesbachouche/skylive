@@ -541,18 +541,17 @@
         }
 
         // Convert UTC to Local Time
-        function convertToLocalTime(utcTime) {
-            const matchDate = new Date(utcTime);
-            const options = {
-                hour: '2-digit',
-                minute: '2-digit',
-                hour12: false,
-                timeZoneName: 'short',
-                timeZone: 'Europe/Paris'
-            };
-            const localTime = new Intl.DateTimeFormat('en-GB', options).format(matchDate);
-            return localTime;
-        }
+       function convertToLocalTime(utcTime) {
+    const matchDate = new Date(utcTime);
+    const options = {
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false,
+        timeZoneName: 'short'
+    };
+    const localTime = new Intl.DateTimeFormat(undefined, options).format(matchDate); // `undefined` uses the user's local time zone
+    return localTime;
+}
 
         // Initialize Player
         function openStreamPopup(englishUrl, arabicUrl, server3Url) {
